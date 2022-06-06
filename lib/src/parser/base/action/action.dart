@@ -14,7 +14,7 @@ class ActionParser<R extends Object?, O extends Object?> extends WrapParser<R, O
   ActionParser.empty(this.actionFunction) : children = <Parser<O>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<O> resultContext = handler.parse(parser, context);
 
     /// Late as if it is called immediately, it will throw on [Failure<O>] and [Empty<O>]

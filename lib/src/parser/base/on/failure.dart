@@ -13,14 +13,14 @@ class OnFailureParser<R extends Object?> extends WrapParser<R, R> {
   OnFailureParser.empty(this.value) : children = <Parser<R>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<R> result = handler.parse(parser, context);
 
     return result.isFailure ? result.success(value) : result;
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int result = handler.recognize(parser, input, index);
     return result < 0 ? index : result;
   }

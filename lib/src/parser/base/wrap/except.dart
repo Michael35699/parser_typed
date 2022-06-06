@@ -13,7 +13,7 @@ class ExceptParser<R extends Object?> extends WrapParser<R, R> {
   ExceptParser.empty() : children = <Parser>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     int delimit = handler.recognize(delimiter, context.input, context.index);
 
     return delimit > -1 //
@@ -22,7 +22,7 @@ class ExceptParser<R extends Object?> extends WrapParser<R, R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) =>
+  int recognizeOn(String input, int index, ParseHandler handler) =>
       handler.recognize(delimiter, input, index) > -1 ? -1 : handler.recognize(parser, input, index);
 
   @override

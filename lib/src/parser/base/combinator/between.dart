@@ -14,7 +14,7 @@ class BetweenParser<R extends Object?> extends CombinatorParser<R, dynamic> with
   BetweenParser.empty() : children = <Parser>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<void> _left = handler.parse(left, context);
     if (_left.isFailure) {
       return _left.failure();
@@ -31,7 +31,7 @@ class BetweenParser<R extends Object?> extends CombinatorParser<R, dynamic> with
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int _left = handler.recognize(left, input, index);
     if (_left < 0) {
       return _left;

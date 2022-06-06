@@ -5,5 +5,5 @@ import "package:parser_typed/parser.dart";
 mixin NullRecognizer<R> on Parser<R> {
   @override
   @nonVirtual
-  int recognizeOn(String input, int index, Handler handler) => index;
+  int recognizeOn(String input, int index, ParseHandler handler) => index;
 }

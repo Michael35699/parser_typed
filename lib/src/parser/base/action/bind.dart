@@ -14,7 +14,7 @@ class BindParser<R extends Object?, O extends Object?> extends WrapParser<R, O> 
   BindParser.empty(this.bindFunction) : children = <Parser<O>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<O> resultContext = handler.parse(parser, context);
 
     return resultContext.isSuccess //
@@ -23,7 +23,7 @@ class BindParser<R extends Object?, O extends Object?> extends WrapParser<R, O> 
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     Context<void> context = Empty(input, index);
     Context<R> result = parseOn(context, handler);
 

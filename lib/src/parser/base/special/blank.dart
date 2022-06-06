@@ -11,10 +11,10 @@ class BlankParser<R extends Object?> extends SpecialParser<R> with NonNullablePa
   BlankParser.generate();
 
   @override
-  Failure parseOn(Context<void> context, Handler handler) => context.failure("blank");
+  Failure parseOn(Context<void> context, ParseHandler handler) => context.failure("blank");
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => -1;
+  int recognizeOn(String input, int index, ParseHandler handler) => -1;
 }
 
 final BlankParser _singleton = BlankParser<dynamic>();

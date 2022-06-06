@@ -5,11 +5,11 @@ import "package:parser_typed/parser.dart";
 mixin CannotParse<R> on Parser<R> {
   @nonVirtual
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) =>
+  Context<R> parseOn(Context<void> context, ParseHandler handler) =>
       throw UnsupportedError("'$runtimeType' parsers cannot parse!");
 
   @nonVirtual
   @override
-  int recognizeOn(String input, int index, Handler handler) =>
+  int recognizeOn(String input, int index, ParseHandler handler) =>
       throw UnsupportedError("'$runtimeType' parsers cannot recognize!");
 }

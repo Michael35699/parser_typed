@@ -13,7 +13,7 @@ class FailureMessageParser<R extends Object?> extends WrapParser<R, R> with Pass
   FailureMessageParser.empty(this.message) : children = <Parser<R>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<R> result = handler.parse(parser, context);
 
     return result.isFailure //

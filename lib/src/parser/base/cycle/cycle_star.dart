@@ -18,7 +18,7 @@ class CycleStarParser<R extends Object?> extends CyclicParser<R> with NullablePa
   CycleStarParser.empty() : children = <Parser<R>>[];
 
   @override
-  Context<List<R>> parseOn(Context<void> context, Handler handler) {
+  Context<List<R>> parseOn(Context<void> context, ParseHandler handler) {
     List<R> results = <R>[];
     Context<R> ctx = context.empty();
     while (true) {
@@ -34,7 +34,7 @@ class CycleStarParser<R extends Object?> extends CyclicParser<R> with NullablePa
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int position = index;
     while (true) {
       int inner = handler.recognize(parser, input, position);

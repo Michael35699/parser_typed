@@ -12,7 +12,7 @@ class FlatParser<R extends Object?> extends PrimitiveParser with WrapTransform<S
   FlatParser.empty() : children = <Parser<R>>[];
 
   @override
-  Context<int> call(String input, int index, Handler handler) {
+  Context<int> call(String input, int index, ParseHandler handler) {
     int end = handler.recognize(parser, input, index);
     if (end < 0) {
       return fail("Flat failure. If this is seen, then it is recommended "

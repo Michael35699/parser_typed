@@ -7,7 +7,7 @@ class SourceParser extends SpecialParser<String> with NonNullableParser {
   SourceParser._();
 
   @override
-  Context<String> parseOn(Context<void> context, Handler handler) {
+  Context<String> parseOn(Context<void> context, ParseHandler handler) {
     String input = context.input;
     int index = context.index;
 
@@ -17,7 +17,7 @@ class SourceParser extends SpecialParser<String> with NonNullableParser {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => //
+  int recognizeOn(String input, int index, ParseHandler handler) => //
       index < input.length ? index + 1 : -1;
 }
 

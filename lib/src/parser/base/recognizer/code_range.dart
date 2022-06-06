@@ -10,7 +10,7 @@ class CodeRangeParser extends PrimitiveParser with NonNullableParser, ChildlessP
         high = high.codeUnitAt(0);
 
   @override
-  Context<int> call(String input, int index, Handler handler) {
+  Context<int> call(String input, int index, ParseHandler handler) {
     if (index < input.length) {
       int code = input.codeUnitAt(index);
       if (low <= code && code <= high) {

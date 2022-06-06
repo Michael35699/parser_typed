@@ -26,7 +26,7 @@ extension on RecognizingLeftRecursion {
   RecognizingMemoizationEntry entry() => RecognizingMemoizationEntry(this);
 }
 
-class QuadraticHandler extends Handler {
+class QuadraticHandler extends ParseHandler {
   @override
   Failure longestFailure = const Failure("Base failure", "", -1);
 

@@ -8,7 +8,7 @@ class RecognizerParser extends PrimitiveParser with ChildlessParser {
   RecognizerParser(this.predicate);
 
   @override
-  Context<int> call(String input, int index, Handler handler) => predicate(input, index, succeed, fail);
+  Context<int> call(String input, int index, ParseHandler handler) => predicate(input, index, succeed, fail);
 }
 
 PrimitiveParser recognizer(RecognizerPredicate predicate) => RecognizerParser(predicate);

@@ -14,7 +14,7 @@ class FlatMapParser<R extends Object?, O extends Object?> extends WrapParser<R, 
   FlatMapParser.empty(this.flatMapFunction) : children = <Parser<O>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<O> resultContext = handler.parse(parser, context);
 
     return resultContext.isSuccess //
@@ -23,7 +23,7 @@ class FlatMapParser<R extends Object?, O extends Object?> extends WrapParser<R, 
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => handler.recognize(parser, input, index);
+  int recognizeOn(String input, int index, ParseHandler handler) => handler.recognize(parser, input, index);
 
   @override
   FlatMapParser<R, O> get empty => FlatMapParser<R, O>.empty(flatMapFunction);

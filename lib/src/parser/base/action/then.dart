@@ -14,10 +14,10 @@ class ThenParser<R extends Object?, O extends Object?> extends WrapParser<R, O> 
   ThenParser.empty(this.function) : children = <Parser<O>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) => function(handler.parse(parser, context));
+  Context<R> parseOn(Context<void> context, ParseHandler handler) => function(handler.parse(parser, context));
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => handler.recognize(parser, input, index);
+  int recognizeOn(String input, int index, ParseHandler handler) => handler.recognize(parser, input, index);
 
   @override
   ThenParser<R, O> get empty => ThenParser<R, O>.empty(function);

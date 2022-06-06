@@ -7,7 +7,7 @@ class EndOfInputParser extends SpecialParser<void> with NullableParser {
   EndOfInputParser._();
 
   @override
-  Context<void> parseOn(Context<void> context, Handler handler) {
+  Context<void> parseOn(Context<void> context, ParseHandler handler) {
     String input = context.input;
     int index = context.index;
 
@@ -17,7 +17,7 @@ class EndOfInputParser extends SpecialParser<void> with NullableParser {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => index >= input.length ? index : -1;
+  int recognizeOn(String input, int index, ParseHandler handler) => index >= input.length ? index : -1;
 }
 
 EndOfInputParser end() => EndOfInputParser();

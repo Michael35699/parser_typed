@@ -14,7 +14,7 @@ class FilterParser<R extends Object?> extends WrapParser<R, R> {
   FilterParser.empty(this.filterFunction) : children = <Parser<R>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<R> resultContext = handler.parse(parser, context);
 
     return resultContext.isSuccess && !filterFunction(resultContext.value) //
@@ -23,7 +23,7 @@ class FilterParser<R extends Object?> extends WrapParser<R, R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     Context<void> context = Empty(input, index);
     Context<R> resultContext = parseOn(context, handler);
 

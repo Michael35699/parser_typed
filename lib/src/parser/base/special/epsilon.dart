@@ -7,10 +7,10 @@ class EpsilonParser extends SpecialParser<String> with NullableParser {
   EpsilonParser._();
 
   @override
-  Context<String> parseOn(Context<void> context, Handler handler) => context.success("");
+  Context<String> parseOn(Context<void> context, ParseHandler handler) => context.success("");
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => index;
+  int recognizeOn(String input, int index, ParseHandler handler) => index;
 }
 
 EpsilonParser epsilon() => EpsilonParser();

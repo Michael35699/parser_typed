@@ -3,7 +3,7 @@
 import "package:parser_typed/parser.dart";
 import "package:parser_typed/src/handler/packrat/linear/typedef.dart";
 
-class LinearHandler extends Handler {
+class LinearHandler extends ParseHandler {
   @override
   Failure longestFailure = const Failure("Base failure", "", -1);
 

@@ -12,7 +12,7 @@ class NegativeLookaheadParser<R extends Object?> extends WrapParser<void, R> {
   NegativeLookaheadParser.empty() : children = <Parser<R>>[];
 
   @override
-  Context<void> parseOn(Context<void> context, Handler handler) {
+  Context<void> parseOn(Context<void> context, ParseHandler handler) {
     if (handler.recognize(parser, context.input, context.index) < 0) {
       return context.success(null);
     }
@@ -20,7 +20,7 @@ class NegativeLookaheadParser<R extends Object?> extends WrapParser<void, R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => //
+  int recognizeOn(String input, int index, ParseHandler handler) => //
       handler.recognize(parser, input, index) >= 0 ? -1 : index;
 
   @override

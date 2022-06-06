@@ -13,7 +13,7 @@ class OnSuccessParser<R extends Object?, O extends Object?> extends WrapParser<R
   OnSuccessParser.empty(this.value) : children = <Parser<O>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<O> result = handler.parse(parser, context);
 
     return result.isSuccess //

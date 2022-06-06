@@ -14,7 +14,7 @@ class SequenceParser<R extends Object?> extends CombinatorParser<List<R>, R> {
   SequenceParser.empty() : children = <Parser<R>>[];
 
   @override
-  Context<List<R>> parseOn(Context<void> context, Handler handler) {
+  Context<List<R>> parseOn(Context<void> context, ParseHandler handler) {
     List<R> results = <R>[];
 
     Context<void> ctx = context;
@@ -32,7 +32,7 @@ class SequenceParser<R extends Object?> extends CombinatorParser<List<R>, R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int position = index;
     for (int i = 0; i < childrenLength; i++) {
       position = handler.recognize(children[i], input, position);

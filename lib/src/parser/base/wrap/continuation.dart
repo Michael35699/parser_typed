@@ -16,11 +16,11 @@ class ContinuationParser<R extends Object?> extends WrapParser<R, R> {
   ContinuationParser.empty(this.function, [this.recognizeFn]) : children = <Parser<R>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) =>
+  Context<R> parseOn(Context<void> context, ParseHandler handler) =>
       function((Context<void> ctx) => handler.parse(parser, ctx), context);
 
   @override
-  int recognizeOn(String input, int index, Handler handler) =>
+  int recognizeOn(String input, int index, ParseHandler handler) =>
       recognizeFn?.call((int i) => handler.recognize(parser, input, i), index) ??
       handler.recognize(parser, input, index);
 

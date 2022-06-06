@@ -10,7 +10,7 @@ abstract class AtomicParser<R extends Object?> extends Parser<R> with ChildlessP
   Context<R> call(String input, int index);
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     String input = context.input;
     int index = context.index;
 
@@ -22,7 +22,7 @@ abstract class AtomicParser<R extends Object?> extends Parser<R> with ChildlessP
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     Context<R> ctx = call(input, index);
 
     return ctx.isFailure ? -1 : ctx.index;

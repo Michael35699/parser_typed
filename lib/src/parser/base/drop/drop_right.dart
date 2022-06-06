@@ -13,7 +13,7 @@ class DropRightParser<R extends Object?> extends CombinatorParser<R, dynamic> wi
   DropRightParser.empty() : children = <Parser>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<R> _parser = handler.parse(parser, context);
     if (_parser.isFailure) {
       return _parser.failure();
@@ -26,7 +26,7 @@ class DropRightParser<R extends Object?> extends CombinatorParser<R, dynamic> wi
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int _parser = handler.recognize(parser, input, index);
     if (_parser < 0) {
       return _parser;

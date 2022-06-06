@@ -18,7 +18,7 @@ class CyclePlusParser<R extends Object?> extends CyclicParser<R> {
   CyclePlusParser.empty() : children = <Parser<R>>[];
 
   @override
-  Context<List<R>> parseOn(Context<void> context, Handler handler) {
+  Context<List<R>> parseOn(Context<void> context, ParseHandler handler) {
     Context<R> ctx = handler.parse(parser, context);
     if (ctx.isFailure) {
       return ctx.failure();
@@ -40,7 +40,7 @@ class CyclePlusParser<R extends Object?> extends CyclicParser<R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int position = handler.recognize(parser, input, index);
     if (position < 0) {
       return position;

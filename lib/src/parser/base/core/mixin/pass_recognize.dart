@@ -5,5 +5,5 @@ import "package:parser_typed/parser.dart";
 mixin PassRecognizer<O, I> on WrapParser<O, I> {
   @override
   @nonVirtual
-  int recognizeOn(String input, int index, Handler handler) => handler.recognize(this.parser, input, index);
+  int recognizeOn(String input, int index, ParseHandler handler) => handler.recognize(this.parser, input, index);
 }

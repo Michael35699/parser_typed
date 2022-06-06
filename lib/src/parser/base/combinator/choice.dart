@@ -14,7 +14,7 @@ class ChoiceParser<R extends Object?> extends CombinatorParser<R, R> {
   ChoiceParser.empty() : children = <Parser<R>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     for (int i = 0; i < childrenLength; i++) {
       Context<R> result = handler.parse(children[i], context);
       if (result.isSuccess) {
@@ -29,7 +29,7 @@ class ChoiceParser<R extends Object?> extends CombinatorParser<R, R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     for (int i = 0; i < childrenLength; i++) {
       int result = handler.recognize(children[i], input, index);
       if (result >= 0) {

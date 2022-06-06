@@ -7,7 +7,7 @@ class StartOfInputParser extends SpecialParser<String> with NullableParser {
   StartOfInputParser._();
 
   @override
-  Context<String> parseOn(Context<void> context, Handler handler) {
+  Context<String> parseOn(Context<void> context, ParseHandler handler) {
     int index = context.index;
 
     return index <= 0 //
@@ -16,5 +16,5 @@ class StartOfInputParser extends SpecialParser<String> with NullableParser {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => index <= 0 ? index : -1;
+  int recognizeOn(String input, int index, ParseHandler handler) => index <= 0 ? index : -1;
 }

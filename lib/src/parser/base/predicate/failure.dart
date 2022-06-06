@@ -8,7 +8,7 @@ class FailureParser<R extends Object?> extends SpecialParser<R> with NullablePar
   FailureParser(this.message);
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) => context.failure.artificial(message);
+  Context<R> parseOn(Context<void> context, ParseHandler handler) => context.failure.artificial(message);
 }
 
 FailureParser<R> _failure<R>(String message) => FailureParser<R>(message);

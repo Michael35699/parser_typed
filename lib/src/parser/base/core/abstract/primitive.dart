@@ -10,10 +10,10 @@ abstract class PrimitiveParser extends Parser<String> {
   Failure fail(String message) => Failure(message);
   Success<int> succeed(int index) => Success(index);
 
-  Context<int> call(String input, int index, Handler handler);
+  Context<int> call(String input, int index, ParseHandler handler);
 
   @override
-  Context<String> parseOn(Context<void> context, Handler handler) {
+  Context<String> parseOn(Context<void> context, ParseHandler handler) {
     String input = context.input;
     int index = context.index;
     Context<int> ctx = call(input, index, handler);
@@ -28,7 +28,7 @@ abstract class PrimitiveParser extends Parser<String> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     Context<int> ctx = call(input, index, handler);
 
     return ctx.isFailure ? -1 : ctx.value;

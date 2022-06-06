@@ -9,7 +9,7 @@ class StringParser extends PrimitiveParser with NonNullableParser, ChildlessPars
   StringParser._(this.pattern);
 
   @override
-  Context<int> call(String input, int index, Handler handler) {
+  Context<int> call(String input, int index, ParseHandler handler) {
     if (index >= 0 && pattern.matchAsPrefix(input, index) != null) {
       return succeed(index + pattern.length);
     }

@@ -19,7 +19,7 @@ class CycleToParser<R extends Object?> extends CyclicParser<R> {
   CycleToParser.empty() : children = <Parser>[];
 
   @override
-  Context<List<R>> parseOn(Context<void> context, Handler handler) {
+  Context<List<R>> parseOn(Context<void> context, ParseHandler handler) {
     String input = context.input;
 
     List<R> results = <R>[];
@@ -54,7 +54,7 @@ class CycleToParser<R extends Object?> extends CyclicParser<R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     if (handler.recognize(delimiter, input, index) > 0) {
       return -1;
     }

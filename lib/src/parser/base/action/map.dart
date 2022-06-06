@@ -14,7 +14,7 @@ class MapParser<R extends Object?, O extends Object?> extends WrapParser<R, O> {
   MapParser.empty(this.function) : children = <Parser<O>>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     Context<O> result = handler.parse(parser, context);
 
     return result.isSuccess //
@@ -23,7 +23,7 @@ class MapParser<R extends Object?, O extends Object?> extends WrapParser<R, O> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) => handler.recognize(parser, input, index);
+  int recognizeOn(String input, int index, ParseHandler handler) => handler.recognize(parser, input, index);
 
   @override
   MapParser<R, O> get empty => MapParser<R, O>.empty(function);

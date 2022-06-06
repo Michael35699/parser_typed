@@ -20,7 +20,7 @@ class CycleRangeParser<R extends Object?> extends CyclicParser<R> {
   CycleRangeParser<R> get empty => CycleRangeParser<R>.empty(min, max);
 
   @override
-  Context<List<R>> parseOn(Context<void> context, Handler handler) {
+  Context<List<R>> parseOn(Context<void> context, ParseHandler handler) {
     List<R> results = <R>[];
 
     Context<R> ctx = context.empty();
@@ -48,7 +48,7 @@ class CycleRangeParser<R extends Object?> extends CyclicParser<R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int position = index;
     int count = 0;
     while (count < min) {

@@ -9,7 +9,7 @@ class RegExpParser extends PrimitiveParser with ChildlessParser {
   RegExpParser.fromString(String pattern) : pattern = RegExp(pattern);
 
   @override
-  Context<int> call(String input, int index, Handler handler) {
+  Context<int> call(String input, int index, ParseHandler handler) {
     Match? match = pattern.matchAsPrefix(input, index);
     if (match != null) {
       return succeed(match.end);

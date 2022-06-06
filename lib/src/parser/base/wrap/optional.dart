@@ -12,7 +12,7 @@ class OptionalParser<R extends Object?> extends WrapParser<R?, R> with NullableP
   OptionalParser.empty() : children = <Parser<R>>[];
 
   @override
-  Context<R?> parseOn(Context<void> context, Handler handler) {
+  Context<R?> parseOn(Context<void> context, ParseHandler handler) {
     Context<R> result = handler.parse(parser, context);
     if (result.isFailure) {
       return context.success(null);
@@ -21,7 +21,7 @@ class OptionalParser<R extends Object?> extends WrapParser<R?, R> with NullableP
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int result = handler.recognize(parser, input, index);
     return result < 0 ? index : result;
   }

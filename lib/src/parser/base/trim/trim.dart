@@ -31,7 +31,7 @@ class TrimmingParser<R extends Object?> extends WrapParser<R, R> {
   TrimmingParser.empty(this.left, this.right) : children = <Parser>[];
 
   @override
-  Context<R> parseOn(Context<void> context, Handler handler) {
+  Context<R> parseOn(Context<void> context, ParseHandler handler) {
     String input = context.input;
 
     int beginningIndex = context.index;
@@ -51,7 +51,7 @@ class TrimmingParser<R extends Object?> extends WrapParser<R, R> {
   }
 
   @override
-  int recognizeOn(String input, int index, Handler handler) {
+  int recognizeOn(String input, int index, ParseHandler handler) {
     int start = leftPattern?.matchAsPrefix(input, index)?.end ?? index;
     int result = handler.recognize(parser, input, start);
     if (result < 0) {

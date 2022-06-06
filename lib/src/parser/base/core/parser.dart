@@ -16,9 +16,9 @@ abstract class Parser<R extends Object?> implements Pattern {
   late final bool isTerminal = children.isEmpty;
 
   @Deprecated("Call the handler")
-  Context<R> parseOn(Context<void> context, Handler handler);
+  Context<R> parseOn(Context<void> context, ParseHandler handler);
   @Deprecated("Call the handler")
-  int recognizeOn(String input, int index, Handler handler);
+  int recognizeOn(String input, int index, ParseHandler handler);
 
   Context<R> parse(String input, [int start = 0]) => QuadraticHandler().parse(this, Empty(input, start));
   int recognize(String input, [int start = 0]) => QuadraticHandler().recognize(this, input, start);
