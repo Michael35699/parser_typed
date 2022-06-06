@@ -152,6 +152,8 @@ abstract class Parser<R extends Object?> implements Pattern {
     }
   }
 
+  Set<Parser> get pool => traverse.toSet();
+
   static Parser resolve(Object object) {
     if (object is Parser) {
       return object;
@@ -169,12 +171,14 @@ abstract class Parser<R extends Object?> implements Pattern {
   }
 
   static Iterable<Parser> rules(Parser root) sync* {
-    yield root;
-    yield* (root.build().traverse).where((Parser parser) =>
-        parser != root &&
-        parser.memoize &&
-        !parser.isTerminal &&
-        (parser is WrapParser ? !parser.parser.isTerminal : parser is! WrapParser));
+    for (Parser parser in root.build().traverse) {
+      if (parser != root &&
+          parser.memoize &&
+          !parser.isTerminal &&
+          (parser is WrapParser ? !parser.parser.isTerminal : parser is! WrapParser)) {
+        yield parser;
+      }
+    }
   }
 
   static String generateAsciiTree(Parser parser, {Map<Parser, String>? marks}) {
@@ -222,7 +226,8 @@ abstract class Parser<R extends Object?> implements Pattern {
 
       if (built[parser] != null) {
         buffer.writeln("...");
-        return buffer.toString();
+
+        break block;
       }
 
       built[parser] = true;
