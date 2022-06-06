@@ -45,9 +45,7 @@ class TrimmingParser<R extends Object?> extends WrapParser<R, R> {
     int endingIndex = result.index;
     int end = rightPattern?.matchAsPrefix(input, endingIndex)?.end ?? endingIndex;
 
-    return result.isSuccess //
-        ? result.success(result.value, end)
-        : result;
+    return result.replaceIndex(end);
   }
 
   @override
