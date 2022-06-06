@@ -1,0 +1,1 @@
+enum PackratMode { linear, quadratic }

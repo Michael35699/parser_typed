@@ -1,0 +1,5 @@
+.dart_tool
+.packages
+bin
+pubspec.lock
+parser_typed.exe
