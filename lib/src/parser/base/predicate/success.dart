@@ -12,4 +12,4 @@ class SuccessParser<R extends Object?> extends SpecialParser<R> with NullablePar
 }
 
 SuccessParser<R> _success<R>(R result) => SuccessParser<R>(result);
-Parser<R> success<R extends Object>(R result) => _success(result);
+Parser<R> success<R extends Object?>(R result) => _success(result);
