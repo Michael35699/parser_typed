@@ -22,5 +22,5 @@ class Success<R extends Object?> extends Context<R> {
   Success<R> inherit<I extends Object?>(Context<I> context) => Success<R>(value, context.input, context.index);
 
   @override
-  String toString() => "Success[$index]: $value";
+  String toString() => "Success[$location]: $value";
 }

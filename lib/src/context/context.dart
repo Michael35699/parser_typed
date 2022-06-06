@@ -36,6 +36,14 @@ abstract class Context<R extends Object?> {
 
   R get value;
   String get message;
+
+  /// Counts all the newline tokens up until [index], adding 1.
+  int get line => "$input ".substring(0, index + 1).split("\n").length;
+
+  /// Gets the current line of [index], then counts all the characters until the latest newline OR beginning of input.
+  int get column => "$input ".substring(0, index + 1).split("\n").last.length;
+
+  String get location => "$line:$column";
 }
 
 extension FailureExtension on Failure Function([String? message, bool artificial]) {

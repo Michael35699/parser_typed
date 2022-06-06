@@ -22,5 +22,5 @@ class Empty extends Context<Never> {
   Empty inherit<I>(Context<I> context) => Empty(context.input, context.index);
 
   @override
-  String toString() => "Empty[$index]";
+  String toString() => "Empty[$location]";
 }

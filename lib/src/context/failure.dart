@@ -24,15 +24,9 @@ class Failure extends Context<Never> {
   Failure inherit<I>(Context<I> context) => Failure(message, context.input, context.index);
 
   @override
-  String toString() => "Failure[$index]: $message";
+  String toString() => "Failure[$location]: $message";
 
   String get padded => input.split("\n").map((String c) => "$c ").join("\n");
-
-  /// Counts all the newline tokens up until [index], adding 1.
-  int get line => "$input ".substring(0, index + 1).split("\n").length;
-
-  /// Gets the current line of [index], then counts all the characters until the latest newline OR beginning of input.
-  int get column => "$input ".substring(0, index + 1).split("\n").last.length;
 
   static String highlightIndent(String input) {
     int i = input.length - input.trimLeft().length;
