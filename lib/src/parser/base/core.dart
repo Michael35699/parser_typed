@@ -9,6 +9,7 @@ export "core/extension/debug.dart";
 export "core/extension/resolve.dart";
 export "core/generative/predicate.dart";
 export "core/generative/recognizer.dart";
+export "core/grammar.dart";
 export "core/match.dart";
 export "core/mixin/cannot_debug.dart";
 export "core/mixin/cannot_parse.dart";
