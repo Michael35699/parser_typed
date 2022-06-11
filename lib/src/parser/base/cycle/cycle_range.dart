@@ -71,18 +71,18 @@ class CycleRangeParser<R extends Object?> extends CyclicParser<R> {
   }
 }
 
-CycleRangeParser<R> _cycleRange<R>(Parser<R> parser, int min, [int? max]) => //
+CycleRangeParser<R> _cycleRange<R>(Parser<R> parser, num min, [num? max]) => //
     CycleRangeParser<R>(parser, min, max ?? double.infinity);
-Parser<List<R>> cycleRange<R>(Parser<R> parser, int min, [int? max]) => _cycleRange(parser, min, max);
+Parser<List<R>> cycleRange<R>(Parser<R> parser, num min, [num? max]) => _cycleRange(parser, min, max);
 
 extension ParserCycleRangeExtension<R> on Parser<R> {
-  Parser<List<R>> range(int min, [int? max]) => _cycleRange(this, min, max);
+  Parser<List<R>> range(num min, [num? max]) => _cycleRange(this, min, max);
 }
 
 extension LazyParserCycleRangeExtension<R> on Lazy<Parser<R>> {
-  Parser<List<R>> range(int min, [int? max]) => this.reference().range(min, max);
+  Parser<List<R>> range(num min, [num? max]) => this.reference().range(min, max);
 }
 
 extension StringCycleRangeExtension on String {
-  Parser<List<String>> range(int min, [int? max]) => this.parser().range(min, max);
+  Parser<List<String>> range(num min, [num? max]) => this.parser().range(min, max);
 }
