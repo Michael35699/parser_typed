@@ -49,7 +49,7 @@ in-test
       expect(converted.isEmpty, isTrue);
     });
     test("success", () {
-      Context<Object?> converted = base.success("yes");
+      Context<String> converted = base.success("yes");
       expect(converted, isA<Success>());
       expect(converted.isFailure, isFalse);
       expect(converted.isSuccess, isTrue);
