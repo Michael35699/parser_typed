@@ -4,7 +4,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class ReferenceParser<R extends Object?> extends Parser<R> with LazyLoad<R>, CannotParse<R> {
+class ReferenceParser<R> extends Parser<R> with LazyLoad<R>, CannotParse<R> {
   static final HashMap<Lazy<Parser>, ReferenceParser<Object?>> _thunkMap =
       HashMap<Lazy<Parser>, ReferenceParser<Object?>>();
 
@@ -26,7 +26,7 @@ class ReferenceParser<R extends Object?> extends Parser<R> with LazyLoad<R>, Can
   LazyLoad<R> eager(Parser<R> parser) => ReferenceParser<R>.eager(parser);
 }
 
-ReferenceParser<R> reference<R extends Object?>(Lazy<Parser<R>> lazyParser) => ReferenceParser<R>(lazyParser);
+ReferenceParser<R> reference<R>(Lazy<Parser<R>> lazyParser) => ReferenceParser<R>(lazyParser);
 
 extension FakeReferenceExtension<R> on Parser<R> {
   Parser<R> operator -() => this;

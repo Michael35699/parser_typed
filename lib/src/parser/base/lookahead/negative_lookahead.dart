@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class NegativeLookaheadParser<R extends Object?> extends WrapParser<void, R> {
+class NegativeLookaheadParser<R> extends WrapParser<void, R> {
   @override
   final List<Parser<R>> children;
   @override

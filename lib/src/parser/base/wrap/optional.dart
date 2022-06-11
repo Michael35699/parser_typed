@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class OptionalParser<R extends Object?> extends WrapParser<R?, R> with NullableParser {
+class OptionalParser<R> extends WrapParser<R?, R> with NullableParser {
   @override
   final List<Parser<R>> children;
   @override
@@ -31,7 +31,7 @@ class OptionalParser<R extends Object?> extends WrapParser<R?, R> with NullableP
 }
 
 OptionalParser<R> _optional<R>(Parser<R> parser) => OptionalParser<R>(parser);
-Parser<R?> optional<R extends Object?>(Parser<R> parser) => _optional(parser);
+Parser<R?> optional<R>(Parser<R> parser) => _optional(parser);
 
 extension ParserOptionalExtension<R> on Parser<R> {
   Parser<R?> optional() => _optional(this);

@@ -4,7 +4,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class TrimmingParser<R extends Object?> extends WrapParser<R, R> {
+class TrimmingParser<R> extends WrapParser<R, R> {
   static final Map<String, Pattern> _savedPatterns = HashMap<String, Pattern>();
   static Pattern? resolvePattern(String? pattern) =>
       pattern == null ? null : _savedPatterns[pattern] ??= RegExp(pattern);

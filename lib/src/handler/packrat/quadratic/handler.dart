@@ -78,7 +78,7 @@ class QuadraticHandler extends ParseHandler {
     return entry;
   }
 
-  Context<R> parseLeftRecursiveResult<R extends Object?>(Parser<R> parser, int index, ParsingMemoizationEntry entry) {
+  Context<R> parseLeftRecursiveResult<R>(Parser<R> parser, int index, ParsingMemoizationEntry entry) {
     ParsingLeftRecursion<R> leftRecursion = entry.value as ParsingLeftRecursion<R>;
     Head<Object?> head = leftRecursion.head!;
     Context<R> seed = leftRecursion.seed;

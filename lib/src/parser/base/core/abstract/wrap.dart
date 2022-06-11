@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-abstract class WrapParser<O extends Object?, I extends Object?> extends Parser<O> with WrapTransform<O> {
+abstract class WrapParser<O, I> extends Parser<O> with WrapTransform<O> {
   @override
   List<Parser> get children;
 

@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class FilterParser<R extends Object?> extends WrapParser<R, R> {
+class FilterParser<R> extends WrapParser<R, R> {
   @override
   final List<Parser<R>> children;
   final FilterFunction<R> filterFunction;

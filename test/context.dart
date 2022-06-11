@@ -13,7 +13,7 @@ void main() {
       expect(() => converted.value, throwsA(isA<UnsupportedError>()));
     });
     test("success", () {
-      Context<dynamic> converted = base.empty();
+      Context<Object?> converted = base.empty();
       expect(converted, isA<Empty>());
       converted = converted.success("yes", 12);
       expect(converted, isA<Success>());
@@ -49,7 +49,7 @@ in-test
       expect(converted.isEmpty, isTrue);
     });
     test("success", () {
-      Context<dynamic> converted = base.success("yes");
+      Context<Object?> converted = base.success("yes");
       expect(converted, isA<Success>());
       expect(converted.isFailure, isFalse);
       expect(converted.isSuccess, isTrue);

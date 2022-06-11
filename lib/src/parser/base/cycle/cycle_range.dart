@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class CycleRangeParser<R extends Object?> extends CyclicParser<R> {
+class CycleRangeParser<R> extends CyclicParser<R> {
   @override
   final List<Parser<R>> children;
   @override

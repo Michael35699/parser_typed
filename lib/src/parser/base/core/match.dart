@@ -1,6 +1,6 @@
 import "package:parser_typed/src/parser/base/core/parser.dart";
 
-class ParserMatch<R extends Object?> implements Match {
+class ParserMatch<R> implements Match {
   @override
   final String input;
   @override

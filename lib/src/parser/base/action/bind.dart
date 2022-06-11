@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class BindParser<R extends Object?, O extends Object?> extends WrapParser<R, O> {
+class BindParser<R, O> extends WrapParser<R, O> {
   @override
   final List<Parser<O>> children;
   final BindFunction<R, O> bindFunction;
@@ -35,11 +35,11 @@ class BindParser<R extends Object?, O extends Object?> extends WrapParser<R, O> 
 }
 
 extension ParserBindExtension<O> on Parser<O> {
-  Parser<R> bind<R extends Object?>(BindFunction<R, O> function) => BindParser<R, O>(this, function);
+  Parser<R> bind<R>(BindFunction<R, O> function) => BindParser<R, O>(this, function);
 }
 
 extension LazyParserBindExtension<O> on Lazy<Parser<O>> {
-  Parser<R> bind<R extends Object?>(BindFunction<R, O> function) => this.reference().bind(function);
+  Parser<R> bind<R>(BindFunction<R, O> function) => this.reference().bind(function);
 }
 
 extension StringBindExtension on String {

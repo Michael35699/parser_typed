@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class DropLeftParser<R extends Object?> extends CombinatorParser<R, dynamic> with SequentialParser<R, dynamic> {
+class DropLeftParser<R> extends CombinatorParser<R, dynamic> with SequentialParser<R, dynamic> {
   @override
   final List<Parser> children;
 

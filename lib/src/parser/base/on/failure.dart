@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class OnFailureParser<R extends Object?> extends WrapParser<R, R> {
+class OnFailureParser<R> extends WrapParser<R, R> {
   @override
   final List<Parser<R>> children;
   final R value;

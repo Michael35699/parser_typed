@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class PredicateParser<R extends Object?> extends AtomicParser<R> {
+class PredicateParser<R> extends AtomicParser<R> {
   final ParserPredicate<R> predicate;
 
   PredicateParser(this.predicate);
@@ -11,4 +11,4 @@ class PredicateParser<R extends Object?> extends AtomicParser<R> {
   Context<R> call(String input, int index) => predicate(input, index, succeed, fail);
 }
 
-PredicateParser<R> predicate<R extends Object?>(ParserPredicate<R> predicate) => PredicateParser<R>(predicate);
+PredicateParser<R> predicate<R>(ParserPredicate<R> predicate) => PredicateParser<R>(predicate);

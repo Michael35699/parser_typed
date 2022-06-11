@@ -6,7 +6,7 @@ import "package:parser_typed/src/context/failure.dart";
 import "package:parser_typed/src/context/success.dart";
 
 @immutable
-abstract class Context<R extends Object?> {
+abstract class Context<R> {
   final String input;
   final int index;
 
@@ -18,10 +18,10 @@ abstract class Context<R extends Object?> {
 
   Context<R> replaceIndex(int index);
   Context<R> replaceInput(String input);
-  Context<R> inherit<I extends Object?>(Context<I> context);
+  Context<R> inherit<I>(Context<I> context);
 
   @pragma("vm:prefer-inline")
-  Success<O> success<O extends Object?>(O result, [int? index]) => //
+  Success<O> success<O>(O result, [int? index]) => //
       Success<O>(result, input, index ?? this.index);
 
   @pragma("vm:prefer-inline")
@@ -32,7 +32,7 @@ abstract class Context<R extends Object?> {
   Empty empty([int? index]) => Empty(input, index ?? this.index);
 
   @pragma("vm:prefer-inline")
-  Context<O> cast<O extends Object?>() => this as Context<O>;
+  Context<O> cast<O>() => this as Context<O>;
 
   R get value;
   String get message;

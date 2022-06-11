@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class MapParser<R extends Object?, O extends Object?> extends WrapParser<R, O> {
+class MapParser<R, O> extends WrapParser<R, O> {
   @override
   final List<Parser<O>> children;
   final MapFunction<R, O> function;
@@ -30,11 +30,11 @@ class MapParser<R extends Object?, O extends Object?> extends WrapParser<R, O> {
 }
 
 extension ParserMapExtension<O> on Parser<O> {
-  Parser<R> map<R extends Object?>(MapFunction<R, O> function) => MapParser<R, O>(this, function);
+  Parser<R> map<R>(MapFunction<R, O> function) => MapParser<R, O>(this, function);
 }
 
 extension LazyParserMapExtension<O> on Lazy<Parser<O>> {
-  Parser<R> map<R extends Object?>(MapFunction<R, O> function) => this.reference().map(function);
+  Parser<R> map<R>(MapFunction<R, O> function) => this.reference().map(function);
 }
 
 extension StringMapExtension on String {

@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class BetweenParser<R extends Object?> extends CombinatorParser<R, dynamic> with SequentialParser<R, dynamic> {
+class BetweenParser<R> extends CombinatorParser<R, dynamic> with SequentialParser<R, dynamic> {
   @override
   final List<Parser> children;
 
@@ -55,8 +55,7 @@ class BetweenParser<R extends Object?> extends CombinatorParser<R, dynamic> with
 BetweenParser<R> _between<R>(Parser<R> parser, Parser<void> left, Parser<void> right) =>
     BetweenParser<R>(parser, left, right);
 
-Parser<R> between<R extends Object?>(Parser<R> parser, Parser<void> left, Parser<void> right) =>
-    _between<R>(parser, left, right);
+Parser<R> between<R>(Parser<R> parser, Parser<void> left, Parser<void> right) => _between<R>(parser, left, right);
 
 extension ParserBetweenExtension<R> on Parser<R> {
   Parser<R> between(Object left, Object right) => _between(this, parser(left), parser(right));

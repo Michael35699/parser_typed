@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class ActionParser<R extends Object?, O extends Object?> extends WrapParser<R, O> with PassRecognizer {
+class ActionParser<R, O> extends WrapParser<R, O> with PassRecognizer {
   @override
   final List<Parser<O>> children;
   final ActionFunction actionFunction;
@@ -41,5 +41,5 @@ extension LazyParserActionExtension<O> on Lazy<Parser<O>> {
 }
 
 extension StringActionExtension on String {
-  // Parser<R> action<R extends Object?>(ActionFunction function) => this.parser().action(function);
+  // Parser<R> action<R >(ActionFunction function) => this.parser().action(function);
 }

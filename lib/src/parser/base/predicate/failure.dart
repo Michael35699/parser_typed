@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class FailureParser<R extends Object?> extends SpecialParser<R> with NullableParser, FailRecognizer {
+class FailureParser<R> extends SpecialParser<R> with NullableParser, FailRecognizer {
   final String message;
 
   FailureParser(this.message);
@@ -12,4 +12,4 @@ class FailureParser<R extends Object?> extends SpecialParser<R> with NullablePar
 }
 
 FailureParser<R> _failure<R>(String message) => FailureParser<R>(message);
-Parser<R> failure<R extends Object?>(String message) => _failure(message);
+Parser<R> failure<R>(String message) => _failure(message);

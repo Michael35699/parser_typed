@@ -8,7 +8,7 @@ import "package:parser_typed/parser.dart";
 import "package:parser_typed/src/handler/packrat/quadratic/handler.dart";
 
 @optionalTypeArgs
-abstract class Parser<R extends Object?> implements Pattern {
+abstract class Parser<R> implements Pattern {
   static Never get never => throw Error();
 
   bool memoize = false;

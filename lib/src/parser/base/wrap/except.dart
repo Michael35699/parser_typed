@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class ExceptParser<R extends Object?> extends WrapParser<R, R> {
+class ExceptParser<R> extends WrapParser<R, R> {
   @override
   final List<Parser> children;
   Parser<void> get delimiter => children[0];
@@ -30,7 +30,7 @@ class ExceptParser<R extends Object?> extends WrapParser<R, R> {
 }
 
 ExceptParser<R> _except<R>(Parser<R> parser, Parser<void> delimiter) => ExceptParser<R>(parser, delimiter);
-ExceptParser<R> except<R extends Object?>(Parser<R> parser, Parser<void> delimiter) => _except(parser, delimiter);
+ExceptParser<R> except<R>(Parser<R> parser, Parser<void> delimiter) => _except(parser, delimiter);
 
 extension ParserExceptExtension<R> on Parser<R> {
   Parser<R> except(Parser<void> delimiter) => _except(this, delimiter);

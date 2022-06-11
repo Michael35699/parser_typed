@@ -244,7 +244,7 @@ void main() {
 
       run("extension_method", built.reference());
       run("extension_getter", built.ref);
-      run("constructor", parser.ReferenceParser(built));
+      run("constructor", parser.ReferenceParser<Object?>(built));
     });
   });
 
@@ -406,9 +406,8 @@ void main() {
       run("constructor", parser.BlankParser());
       test("factory", () {
         expect(parser.blank(), equals(parser.blank()));
-        expect(parser.BlankParser(), equals(parser.BlankParser()));
-
-        expect(parser.BlankParser.generate(), isNot(equals(parser.BlankParser.generate())),
+        expect(parser.BlankParser<Object?>(), equals(parser.BlankParser<Object?>()));
+        expect(parser.BlankParser<Object?>.generate(), isNot(equals(parser.BlankParser<Object?>.generate())),
             reason: "using [BlankParser.generate] should return a new [BlankParser] instance");
       });
     });

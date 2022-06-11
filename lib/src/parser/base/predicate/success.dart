@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class SuccessParser<R extends Object?> extends SpecialParser<R> with NullableParser, NullRecognizer {
+class SuccessParser<R> extends SpecialParser<R> with NullableParser, NullRecognizer {
   final R result;
 
   SuccessParser(this.result);
@@ -12,4 +12,4 @@ class SuccessParser<R extends Object?> extends SpecialParser<R> with NullablePar
 }
 
 SuccessParser<R> _success<R>(R result) => SuccessParser<R>(result);
-Parser<R> success<R extends Object?>(R result) => _success(result);
+Parser<R> success<R>(R result) => _success(result);

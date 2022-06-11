@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class ThenParser<R extends Object?, O extends Object?> extends WrapParser<R, O> {
+class ThenParser<R, O> extends WrapParser<R, O> {
   @override
   final List<Parser<O>> children;
   final ThenFunction<R, O> function;
@@ -24,11 +24,11 @@ class ThenParser<R extends Object?, O extends Object?> extends WrapParser<R, O> 
 }
 
 extension ParserThenExtension<O> on Parser<O> {
-  Parser<R> then<R extends Object?>(ThenFunction<R, O> function) => ThenParser<R, O>(this, function);
+  Parser<R> then<R>(ThenFunction<R, O> function) => ThenParser<R, O>(this, function);
 }
 
 extension LazyParserThenExtension<O> on Lazy<Parser<O>> {
-  Parser<R> then<R extends Object?>(ThenFunction<R, O> function) => ThenParser<R, O>(this.reference(), function);
+  Parser<R> then<R>(ThenFunction<R, O> function) => ThenParser<R, O>(this.reference(), function);
 }
 
 extension StringThenExtension on String {

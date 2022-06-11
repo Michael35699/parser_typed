@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class Head<R extends Object?> {
+class Head<R> {
   final Parser<R> parser;
   final Set<Parser> involvedSet;
   final Set<Parser> evaluationSet;

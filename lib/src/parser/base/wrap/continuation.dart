@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class ContinuationParser<R extends Object?> extends WrapParser<R, R> {
+class ContinuationParser<R> extends WrapParser<R, R> {
   final ParseContinuationFunction function;
   final RecognizeContinuationFunction? recognizeFn;
 

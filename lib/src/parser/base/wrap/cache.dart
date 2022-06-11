@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class CacheParser<R extends Object?> extends WrapParser<R, R> with PassRecognizer, CannotParse {
+class CacheParser<R> extends WrapParser<R, R> with PassRecognizer, CannotParse {
   @override
   final List<Parser<R>> children;
 

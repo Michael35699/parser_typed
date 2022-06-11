@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-abstract class CombinatorParser<R extends Object?, C extends Object?> extends Parser<R> {
+abstract class CombinatorParser<R, C> extends Parser<R> {
   @override
   abstract final List<Parser<C>> children;
   late final int childrenLength = children.length;

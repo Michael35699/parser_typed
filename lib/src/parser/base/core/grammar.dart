@@ -1,6 +1,6 @@
 import "package:parser_typed/parser.dart";
 
-abstract class ParserGrammar<R extends Object?> extends Parser<R> {
+abstract class ParserGrammar<R> extends Parser<R> {
   Parser<R> get entry;
 
   @override

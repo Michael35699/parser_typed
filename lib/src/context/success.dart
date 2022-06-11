@@ -3,7 +3,7 @@ import "package:parser_typed/src/context/context.dart";
 
 @optionalTypeArgs
 @immutable
-class Success<R extends Object?> extends Context<R> {
+class Success<R> extends Context<R> {
   @override
   final R value;
 
@@ -19,7 +19,7 @@ class Success<R extends Object?> extends Context<R> {
   Success<R> replaceInput(String input) => Success<R>(value, input, index);
 
   @override
-  Success<R> inherit<I extends Object?>(Context<I> context) => Success<R>(value, context.input, context.index);
+  Success<R> inherit<I>(Context<I> context) => Success<R>(value, context.input, context.index);
 
   @override
   String toString() => "Success[$location]: $value";

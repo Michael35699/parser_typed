@@ -2,7 +2,7 @@ import "package:parser_typed/parser.dart";
 
 typedef ParserBooleanCacheMap = Expando<bool>;
 typedef ParserCacheMap = Expando<Parser>;
-typedef TransformFunction = Parser<R> Function<R extends Object?>(Parser<R> target);
+typedef TransformFunction = Parser<R> Function<R>(Parser<R> target);
 typedef DynamicTransformFunction = Parser Function(Parser target);
 typedef Recognizer = Parser<String>;
 

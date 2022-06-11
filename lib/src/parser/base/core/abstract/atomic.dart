@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-abstract class AtomicParser<R extends Object?> extends Parser<R> with ChildlessParser<R> {
+abstract class AtomicParser<R> extends Parser<R> with ChildlessParser<R> {
   bool _nullable = false;
 
   Context<R> fail(String message) => Failure(message);

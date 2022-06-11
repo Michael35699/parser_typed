@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class SequenceParser<R extends Object?> extends CombinatorParser<List<R>, R> {
+class SequenceParser<R> extends CombinatorParser<List<R>, R> {
   @override
   final List<Parser<R>> children;
 
@@ -47,10 +47,10 @@ class SequenceParser<R extends Object?> extends CombinatorParser<List<R>, R> {
   SequenceParser<R> get empty => SequenceParser<R>.empty();
 }
 
-SequenceParser<R> sequence<R extends Object?>(List<Parser<R>> parsers) => SequenceParser<R>(parsers);
+SequenceParser<R> sequence<R>(List<Parser<R>> parsers) => SequenceParser<R>(parsers);
 
-extension SequenceBuilderExtension on SequenceParser<R> Function<R extends Object?>(List<Parser<R>> parsers) {
-  SequenceParser<R> builder<R extends Object?>(Iterable<Parser<R>> Function() builderFn) => this(builderFn().toList());
+extension SequenceBuilderExtension on SequenceParser<R> Function<R>(List<Parser<R>> parsers) {
+  SequenceParser<R> builder<R>(Iterable<Parser<R>> Function() builderFn) => this(builderFn().toList());
 }
 
 extension IterableSequenceExtension<E> on List<Parser<E>> {

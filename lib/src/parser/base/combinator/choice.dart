@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class ChoiceParser<R extends Object?> extends CombinatorParser<R, R> {
+class ChoiceParser<R> extends CombinatorParser<R, R> {
   @override
   final List<Parser<R>> children;
 
@@ -43,10 +43,10 @@ class ChoiceParser<R extends Object?> extends CombinatorParser<R, R> {
   ChoiceParser<R> get empty => ChoiceParser<R>.empty();
 }
 
-ChoiceParser<R> choice<R extends Object?>(List<Parser<R>> parsers) => ChoiceParser<R>(parsers);
+ChoiceParser<R> choice<R>(List<Parser<R>> parsers) => ChoiceParser<R>(parsers);
 
-extension ChoiceBuilderExtension on ChoiceParser<R> Function<R extends Object?>(List<Parser<R>> parsers) {
-  ChoiceParser<R> builder<R extends Object?>(Iterable<Parser<R>> Function() builderFn) => this(builderFn().toList());
+extension ChoiceBuilderExtension on ChoiceParser<R> Function<R>(List<Parser<R>> parsers) {
+  ChoiceParser<R> builder<R>(Iterable<Parser<R>> Function() builderFn) => this(builderFn().toList());
 }
 
 extension IterableChoiceExtension<E> on List<Parser<E>> {

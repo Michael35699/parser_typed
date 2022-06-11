@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class FailureMessageParser<R extends Object?> extends WrapParser<R, R> with PassRecognizer, CannotDebugParser {
+class FailureMessageParser<R> extends WrapParser<R, R> with PassRecognizer, CannotDebugParser {
   @override
   final List<Parser<R>> children;
   final String message;
@@ -26,7 +26,7 @@ class FailureMessageParser<R extends Object?> extends WrapParser<R, R> with Pass
 }
 
 FailureMessageParser<R> _message<R>(Parser<R> parser, String message) => FailureMessageParser<R>(parser, message);
-FailureMessageParser<R> message<R extends Object?>(Parser<R> parser, String message) => _message(parser, message);
+FailureMessageParser<R> message<R>(Parser<R> parser, String message) => _message(parser, message);
 
 extension ParserFailureMessageExtension<R> on Parser<R> {
   Parser<R> message(String message) => _message(this, message);

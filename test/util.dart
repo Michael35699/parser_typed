@@ -38,18 +38,18 @@ const List<Object?> emptyList = <Object?>[];
 parser.Parser<int> get integer => "[0-9]+".regex().action(int.parse);
 
 @optionalTypeArgs
-typedef TestGroup<P extends parser.Parser<dynamic>> = void Function(String name, P parser);
+typedef TestGroup<P extends parser.Parser<Object?>> = void Function(String name, P parser);
 
-TestGroup<P> createTestGroup<P extends parser.Parser<dynamic>>(void Function(P parser) callback) => //
+TestGroup<P> createTestGroup<P extends parser.Parser<Object?>>(void Function(P parser) callback) => //
     (String name, P p) {
       test(name, () => callback(p));
     };
 
 @optionalTypeArgs
-typedef TestGroup2<P1 extends parser.Parser<dynamic>, P2 extends parser.Parser<dynamic>> = void Function(
+typedef TestGroup2<P1 extends parser.Parser<Object?>, P2 extends parser.Parser<Object?>> = void Function(
     String name, P1 parser1, P2 parser2);
 
-TestGroup2<P1, P2> createTestGroup2<P1 extends parser.Parser<dynamic>, P2 extends parser.Parser<dynamic>>(
+TestGroup2<P1, P2> createTestGroup2<P1 extends parser.Parser<Object?>, P2 extends parser.Parser<Object?>>(
         void Function(P1, P2) callback) =>
     (String name, P1 parser1, P2 parser2) {
       test(name, () => callback(parser1, parser2));

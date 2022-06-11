@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class FlatParser<R extends Object?> extends PrimitiveParser with WrapTransform<String> {
+class FlatParser<R> extends PrimitiveParser with WrapTransform<String> {
   @override
   final List<Parser<R>> children;
   @override

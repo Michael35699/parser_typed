@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class CycleSeparatedParser<R extends Object?> extends CyclicParser<R> {
+class CycleSeparatedParser<R> extends CyclicParser<R> {
   @override
   final num min = 0;
   @override

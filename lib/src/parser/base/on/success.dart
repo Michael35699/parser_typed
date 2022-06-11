@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class OnSuccessParser<R extends Object?, O extends Object?> extends WrapParser<R, O> with PassRecognizer {
+class OnSuccessParser<R, O> extends WrapParser<R, O> with PassRecognizer {
   @override
   final List<Parser<O>> children;
   final R value;
@@ -29,13 +29,13 @@ OnSuccessParser<R, O> _success<R, O>(Parser<O> parser, R value) => OnSuccessPars
 // OnSuccessParser<R, O> success<R, O>(Parser<O> parser, R value) => _success(parser, value);
 
 extension ParserOnSuccessExtension<O> on Parser<O> {
-  Parser<R> success<R extends Object?>(R value) => _success(this, value);
+  Parser<R> success<R>(R value) => _success(this, value);
 }
 
 extension LazyParserOnSuccessExtension<O> on Lazy<Parser<O>> {
-  Parser<R> success<R extends Object?>(R value) => this.reference().success(value);
+  Parser<R> success<R>(R value) => this.reference().success(value);
 }
 
 extension StringOnSuccessExtension on String {
-  Parser<R> success<R extends Object?>(R value) => this.parser().success(value);
+  Parser<R> success<R>(R value) => this.parser().success(value);
 }

@@ -4,7 +4,7 @@
 
 import "package:parser_typed/parser.dart";
 
-class TrimParser<R extends Object?> extends TrimmingParser<R> {
+class TrimParser<R> extends TrimmingParser<R> {
   static const String _pattern = r"(?:(?!\n)\s)+";
 
   TrimParser.complete(Parser<R> parser) : super.complete(parser, _pattern, _pattern);
@@ -16,9 +16,9 @@ TrimParser<R> _trim<R>(Parser<R> parser) => TrimParser<R>.complete(parser);
 TrimParser<R> _trimLeft<R>(Parser<R> parser) => TrimParser<R>.left(parser);
 TrimParser<R> _trimRight<R>(Parser<R> parser) => TrimParser<R>.right(parser);
 
-Parser<R> trim<R extends Object?>(Parser<R> parser) => _trim(parser);
-Parser<R> trimLeft<R extends Object?>(Parser<R> parser) => _trimLeft(parser);
-Parser<R> trimRight<R extends Object?>(Parser<R> parser) => _trimRight(parser);
+Parser<R> trim<R>(Parser<R> parser) => _trim(parser);
+Parser<R> trimLeft<R>(Parser<R> parser) => _trimLeft(parser);
+Parser<R> trimRight<R>(Parser<R> parser) => _trimRight(parser);
 
 extension ParserTrimExtension<R> on Parser<R> {
   Parser<R> trim() => _trim(this);

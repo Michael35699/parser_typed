@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class CycleStarParser<R extends Object?> extends CyclicParser<R> with NullableParser {
+class CycleStarParser<R> extends CyclicParser<R> with NullableParser {
   @override
   final num min = 0;
   @override
@@ -49,7 +49,7 @@ class CycleStarParser<R extends Object?> extends CyclicParser<R> with NullablePa
   CycleStarParser<R> get empty => CycleStarParser<R>.empty();
 }
 
-CycleStarParser<R> cycleStar<R extends Object?>(Parser<R> parser) => CycleStarParser<R>(parser);
+CycleStarParser<R> cycleStar<R>(Parser<R> parser) => CycleStarParser<R>(parser);
 Parser<List<R>> _cycleStar<R>(Parser<R> parser) => cycleStar(parser);
 
 extension ParserCycleStarExtension<R> on Parser<R> {

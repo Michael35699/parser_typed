@@ -2,7 +2,7 @@ import "package:meta/meta.dart";
 import "package:parser_typed/parser.dart";
 
 @optionalTypeArgs
-class CycleNParser<R extends Object?> extends CyclicParser<R> {
+class CycleNParser<R> extends CyclicParser<R> {
   @override
   late final num min = count;
   @override
