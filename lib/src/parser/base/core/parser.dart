@@ -38,6 +38,16 @@ abstract class Parser<R extends Object?> implements Pattern {
     return result;
   }
 
+  R evaluate(String input, {R Function()? except}) {
+    Context<R> result = run(input);
+    if (result.isFailure) {
+      if (except != null) {
+        return except();
+      }
+    }
+    return result.value;
+  }
+
   Parser<R> cloneSelf(ParserCacheMap cache);
   Parser<R> clone([ParserCacheMap? cache]) {
     cache ??= ParserCacheMap();
