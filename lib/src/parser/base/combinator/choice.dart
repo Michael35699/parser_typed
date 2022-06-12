@@ -74,7 +74,7 @@ extension ParserChoiceExtension<R> on Parser<R> {
 }
 
 extension LazyParserChoiceExtension<R> on Lazy<Parser<R>> {
-  Parser<Object?> operator /(Object other) => Parser.resolve(this) / Parser.resolve(other);
+  Parser<Object?> operator /(Object other) => this.reference() / Parser.resolve(other);
   Parser<R> operator |(Parser<R> other) => this.reference() | other;
 }
 
