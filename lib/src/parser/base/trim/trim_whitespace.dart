@@ -29,23 +29,3 @@ extension ParserTrimExtension<R> on Parser<R> {
   Parser<R> tl() => trimLeft();
   Parser<R> tr() => trimRight();
 }
-
-extension LazyParserTrimExtension<R> on Lazy<Parser<R>> {
-  Parser<R> trim() => this.reference().trim();
-  Parser<R> trimLeft() => this.reference().trimLeft();
-  Parser<R> trimRight() => this.reference().trimRight();
-
-  Parser<R> t() => trim();
-  Parser<R> tl() => trimLeft();
-  Parser<R> tr() => trimRight();
-}
-
-extension StringTrimExtension on String {
-  Parser<String> trim() => this.parser().trim();
-  Parser<String> trimLeft() => this.parser().trimLeft();
-  Parser<String> trimRight() => this.parser().trimRight();
-
-  Parser<String> t() => trim();
-  Parser<String> tl() => trimLeft();
-  Parser<String> tr() => trimRight();
-}

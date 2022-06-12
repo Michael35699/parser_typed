@@ -26,11 +26,3 @@ class ThenParser<R, O> extends WrapParser<R, O> {
 extension ParserThenExtension<O> on Parser<O> {
   Parser<R> then<R>(ThenFunction<R, O> function) => ThenParser<R, O>(this, function);
 }
-
-extension LazyParserThenExtension<O> on Lazy<Parser<O>> {
-  Parser<R> then<R>(ThenFunction<R, O> function) => ThenParser<R, O>(this.reference(), function);
-}
-
-extension StringThenExtension on String {
-  // Parser<R> then<R >(ThenFunction<R, String> function) => ThenParser<R, String>(this.parser(), function);
-}

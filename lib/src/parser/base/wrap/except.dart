@@ -35,11 +35,3 @@ ExceptParser<R> except<R>(Parser<R> parser, Parser<void> delimiter) => _except(p
 extension ParserExceptExtension<R> on Parser<R> {
   Parser<R> except(Parser<void> delimiter) => _except(this, delimiter);
 }
-
-extension LazyParserExceptExtension<R> on Lazy<Parser<R>> {
-  Parser<R> except(Parser<void> delimiter) => this.reference().except(delimiter);
-}
-
-extension StringExceptExtension on String {
-  Parser<String> except(Parser<void> delimiter) => this.parser().except(delimiter);
-}

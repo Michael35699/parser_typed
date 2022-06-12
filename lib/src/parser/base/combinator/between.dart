@@ -58,13 +58,5 @@ BetweenParser<R> _between<R>(Parser<R> parser, Parser<void> left, Parser<void> r
 Parser<R> between<R>(Parser<R> parser, Parser<void> left, Parser<void> right) => _between<R>(parser, left, right);
 
 extension ParserBetweenExtension<R> on Parser<R> {
-  Parser<R> between(Object left, Object right) => _between(this, parser(left), parser(right));
-}
-
-extension LazyParserBetweenExtension<R> on Lazy<Parser<R>> {
-  Parser<R> between(Object left, Object right) => this.reference().between(left, right);
-}
-
-extension StringParserBetweenExtension on String {
-  Parser<String> between(Object left, Object right) => this.parser().between(left, right);
+  Parser<R> between(Parser<void> left, Parser<void> right) => _between(this, parser(left), parser(right));
 }

@@ -32,11 +32,3 @@ class MapParser<R, O> extends WrapParser<R, O> {
 extension ParserMapExtension<O> on Parser<O> {
   Parser<R> map<R>(MapFunction<R, O> function) => MapParser<R, O>(this, function);
 }
-
-extension LazyParserMapExtension<O> on Lazy<Parser<O>> {
-  Parser<R> map<R>(MapFunction<R, O> function) => this.reference().map(function);
-}
-
-extension StringMapExtension on String {
-  // Parser<R> map<R >(MapFunction<R, String> function) => this.parser().map(function);
-}

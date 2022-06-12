@@ -2,14 +2,8 @@ import "dart:math";
 
 import "package:parser_typed/parser.dart";
 
-Parser<String> _token(String one, [String? two, String? three, String? four, String? five]) {
-  List<Parser<String>> parsers = <String?>[one, two, three, four, five] //
-      .whereType<String>()
-      .map((String e) => e.parser())
-      .toList();
-
-  return choice(parsers).trim();
-}
+Parser<String> _token(String one, [String? two, String? three, String? four, String? five]) =>
+    <String?>[one, two, three, four, five].whereType<String>().map(string).toList().choice().trim();
 
 Parser<String> addOp = _token("+", "add");
 Parser<String> subOp = _token("-", "sub");
@@ -42,8 +36,8 @@ Parser<num> _power() =>
     _atomic.ref;
 
 Parser<num> _atomic() =>
-    "0".urng("9").plus().flat().map<num>(int.parse).message("Expected a number") | //
-    ("(".t() & _add.ref & ")".t()).action<num>((void l, num v, void r) => v);
+    ("0" >>> "9").plus().flat().map<num>(int.parse).message("Expected a number") | //
+    _add.ref.between(string("(").t(), string(")").t());
 
 Parser<num> postfix() => _postfix.ref;
 Parser<num> _postfix() =>

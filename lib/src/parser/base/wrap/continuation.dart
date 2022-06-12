@@ -32,13 +32,3 @@ extension ParserContinuationExtension<R> on Parser<R> {
   ContinuationParser<R> cc(ParseContinuationFunction fn, [RecognizeContinuationFunction? recognize]) =>
       ContinuationParser<R>(this, fn, recognize);
 }
-
-extension LazyParserContinuationExtension<R> on Lazy<Parser<R>> {
-  ContinuationParser<R> cc(ParseContinuationFunction fn, [RecognizeContinuationFunction? recognize]) =>
-      this.reference().cc(fn, recognize);
-}
-
-extension StringParserContinuationExtension on String {
-  ContinuationParser<String> cc(ParseContinuationFunction fn, [RecognizeContinuationFunction? recognize]) =>
-      this.parser().cc(fn, recognize);
-}

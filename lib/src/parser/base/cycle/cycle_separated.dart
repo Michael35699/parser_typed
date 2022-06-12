@@ -75,19 +75,7 @@ CycleSeparatedParser<R> _cycleSeparated<R>(Parser<R> parser, Parser<void> separa
 Parser<List<R>> cycleSeparated<R>(Parser<R> parser, Parser<void> separator) => _cycleSeparated(parser, separator);
 
 extension ParserCycleSeparatedExtension<R> on Parser<R> {
-  Parser<List<R>> cycleSeparated(Object separator) => _cycleSeparated(this, parser(separator));
-  Parser<List<R>> separated(Object separator) => cycleSeparated(separator);
-  Parser<List<R>> operator %(Object separator) => cycleSeparated(separator);
-}
-
-extension LazyParserCycleSeparatedExtension<R> on Lazy<Parser<R>> {
-  Parser<List<R>> cycleSeparated(Object separator) => this.reference().separated(separator);
-  Parser<List<R>> separated(Object separator) => cycleSeparated(separator);
-  Parser<List<R>> operator %(Object separator) => cycleSeparated(separator);
-}
-
-extension StringCycleSeparatedExtension on String {
-  Parser<List<String>> cycleSeparated(Object separator) => this.parser().separated(separator);
-  Parser<List<String>> separated(Object separator) => cycleSeparated(separator);
-  Parser<List<String>> operator %(Object separator) => cycleSeparated(separator);
+  Parser<List<R>> cycleSeparated(Parser separator) => _cycleSeparated(this, parser(separator));
+  Parser<List<R>> separated(Parser separator) => cycleSeparated(separator);
+  Parser<List<R>> operator %(Parser separator) => cycleSeparated(separator);
 }

@@ -37,22 +37,8 @@ class DropLeftParser<R> extends CombinatorParser<R, dynamic> with SequentialPars
 DropLeftParser<R> _dropLeft<R>(Parser<void> left, Parser<R> parser) => DropLeftParser<R>(left, parser);
 
 extension ParserDropLeftExtension<R> on Parser<R> {
-  Parser<R> dropLeft(Object left) => _dropLeft(parser(left), this);
-  Parser<R> prefix(Object left) => dropLeft(left);
+  Parser<R> dropLeft(Parser left) => _dropLeft(left, this);
+  Parser<R> prefix(Parser left) => dropLeft(left);
 
-  Parser<Object?> operator >>(Object self) => parser(self).dropLeft(this);
-}
-
-extension LazyParserDropLeftExtension<R> on Lazy<Parser<R>> {
-  Parser<R> dropLeft(Object left) => this.reference().dropLeft(left);
-  Parser<R> prefix(Object left) => dropLeft(left);
-
-  Parser<Object?> operator >>(Object self) => parser(self).dropLeft(this);
-}
-
-extension StringDropLeftExtension on String {
-  Parser<String> dropLeft(Object left) => this.parser().dropLeft(left);
-  Parser<String> prefix(Object left) => dropLeft(left);
-
-  Parser<Object?> operator >>(Object self) => parser(self).dropLeft(this);
+  Parser<Object?> operator >>(Parser self) => self.dropLeft(this);
 }

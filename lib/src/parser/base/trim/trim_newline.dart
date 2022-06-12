@@ -27,23 +27,3 @@ extension ParserTrimNewlineExtension<R> on Parser<R> {
   Parser<R> tnlL() => trimNewlineLeft();
   Parser<R> tnlR() => trimNewlineRight();
 }
-
-extension LazyParserTrimNewlineExtension<R> on Lazy<Parser<R>> {
-  Parser<R> trimNewline() => this.reference().trimNewline();
-  Parser<R> trimNewlineLeft() => this.reference().trimNewlineLeft();
-  Parser<R> trimNewlineRight() => this.reference().trimNewlineRight();
-
-  Parser<R> tnl() => trimNewline();
-  Parser<R> tnlL() => trimNewlineLeft();
-  Parser<R> tnlR() => trimNewlineRight();
-}
-
-extension StringTrimNewlineExtension on String {
-  Parser<String> trimNewline() => this.parser().trimNewline();
-  Parser<String> trimNewlineLeft() => this.parser().trimNewlineLeft();
-  Parser<String> trimNewlineRight() => this.parser().trimNewlineRight();
-
-  Parser<String> tnl() => trimNewline();
-  Parser<String> tnlL() => trimNewlineLeft();
-  Parser<String> tnlR() => trimNewlineRight();
-}

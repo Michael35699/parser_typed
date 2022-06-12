@@ -37,11 +37,3 @@ class BindParser<R, O> extends WrapParser<R, O> {
 extension ParserBindExtension<O> on Parser<O> {
   Parser<R> bind<R>(BindFunction<R, O> function) => BindParser<R, O>(this, function);
 }
-
-extension LazyParserBindExtension<O> on Lazy<Parser<O>> {
-  Parser<R> bind<R>(BindFunction<R, O> function) => this.reference().bind(function);
-}
-
-extension StringBindExtension on String {
-  // Parser<R> bind<R >(BindFunction<R, String> function) => this.parser().bind(function);
-}

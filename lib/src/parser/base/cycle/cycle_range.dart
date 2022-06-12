@@ -78,11 +78,3 @@ Parser<List<R>> cycleRange<R>(Parser<R> parser, num min, [num? max]) => _cycleRa
 extension ParserCycleRangeExtension<R> on Parser<R> {
   Parser<List<R>> range(num min, [num? max]) => _cycleRange(this, min, max);
 }
-
-extension LazyParserCycleRangeExtension<R> on Lazy<Parser<R>> {
-  Parser<List<R>> range(num min, [num? max]) => this.reference().range(min, max);
-}
-
-extension StringCycleRangeExtension on String {
-  Parser<List<String>> range(num min, [num? max]) => this.parser().range(min, max);
-}

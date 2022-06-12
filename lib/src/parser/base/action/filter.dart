@@ -37,11 +37,3 @@ class FilterParser<R> extends WrapParser<R, R> {
 extension ParserFilterParserExtension<R> on Parser<R> {
   Parser<R> where(FilterFunction<R> function) => FilterParser<R>(this, function);
 }
-
-extension LazyParserFilterParserExtension<R> on Lazy<Parser<R>> {
-  Parser<R> where(FilterFunction<R> function) => FilterParser<R>(this.reference(), function);
-}
-
-extension StringFilterParserExtension on String {
-  // Parser<String> where(FilterFunction<String> function) => FilterParser<String>(this.parser(), function);
-}

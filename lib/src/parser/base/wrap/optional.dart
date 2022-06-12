@@ -36,11 +36,3 @@ Parser<R?> optional<R>(Parser<R> parser) => _optional(parser);
 extension ParserOptionalExtension<R> on Parser<R> {
   Parser<R?> optional() => _optional(this);
 }
-
-extension LazyParserOptionalExtension<R> on Lazy<Parser<R>> {
-  Parser<R?> optional() => this.reference().optional();
-}
-
-extension StringOptionalExtension<R> on String {
-  Parser<String?> optional() => this.parser().optional();
-}

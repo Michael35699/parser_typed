@@ -31,11 +31,3 @@ OnSuccessParser<R, O> _success<R, O>(Parser<O> parser, R value) => OnSuccessPars
 extension ParserOnSuccessExtension<O> on Parser<O> {
   Parser<R> success<R>(R value) => _success(this, value);
 }
-
-extension LazyParserOnSuccessExtension<O> on Lazy<Parser<O>> {
-  Parser<R> success<R>(R value) => this.reference().success(value);
-}
-
-extension StringOnSuccessExtension on String {
-  Parser<R> success<R>(R value) => this.parser().success(value);
-}

@@ -83,16 +83,6 @@ CycleToParser<R> _cycleTo<R>(Parser<R> parser, Parser<void> delimiter) => CycleT
 Parser<List<R>> cycleTo<R>(Parser<R> parser, Parser<void> delimiter) => _cycleTo(parser, delimiter);
 
 extension ParserCycleToExtension<R> on Parser<R> {
-  Parser<List<R>> cycleTo(Object delimiter) => _cycleTo(this, parser(delimiter));
-  Parser<List<R>> to(Object delimiter) => cycleTo(delimiter);
-}
-
-extension LazyParserCycleToExtension<R> on Lazy<Parser<R>> {
-  Parser<List<R>> cycleTo(Object delimiter) => this.reference().to(delimiter);
-  Parser<List<R>> to(Object delimiter) => cycleTo(delimiter);
-}
-
-extension StringCycleToExtension on String {
-  Parser<List<String>> cycleTo(Object delimiter) => this.parser().to(delimiter);
-  Parser<List<String>> to(Object delimiter) => cycleTo(delimiter);
+  Parser<List<R>> cycleTo(Parser delimiter) => _cycleTo(this, parser(delimiter));
+  Parser<List<R>> to(Parser delimiter) => cycleTo(delimiter);
 }

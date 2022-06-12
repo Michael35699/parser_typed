@@ -32,13 +32,3 @@ extension ParserFailureMessageExtension<R> on Parser<R> {
   Parser<R> message(String message) => _message(this, message);
   Parser<R> operator ^(String message) => this.message(message);
 }
-
-extension LazyParserFailureMessageExtension<R> on Lazy<Parser<R>> {
-  Parser<R> message(String message) => this.reference().message(message);
-  Parser<R> operator ^(String message) => this.message(message);
-}
-
-extension StringFailureMessageExtension on String {
-  Parser<String> message(String message) => this.parser().message(message);
-  Parser<String> operator ^(String message) => this.message(message);
-}

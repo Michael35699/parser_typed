@@ -164,22 +164,6 @@ abstract class Parser<R> implements Pattern {
 
   Set<Parser> get pool => traverse.toSet();
 
-  static Parser resolve(Object object) {
-    if (object is Parser) {
-      return object;
-    }
-
-    if (object is Lazy<Parser>) {
-      return ReferenceParser<dynamic>(object);
-    }
-
-    if (object is String) {
-      return StringParser(object);
-    }
-
-    throw UnsupportedError("Cannot resolve type ${object.runtimeType} to Parser!");
-  }
-
   static Iterable<Parser> rules(Parser root) sync* {
     for (Parser parser in root.build().traverse) {
       if (parser != root &&
@@ -268,11 +252,7 @@ abstract class Parser<R> implements Pattern {
   }
 }
 
-Parser parser(Object item) => Parser.resolve(item);
-
-extension LazyParserGenericExtension<R> on Lazy<Parser<R>> {
-  ReturnType captureGeneric<ReturnType>(ReturnType Function<R>() function) => function<R>();
-}
+Parser parser(Parser item) => item;
 
 extension _UnindentExtension on String {
   String unindent() {

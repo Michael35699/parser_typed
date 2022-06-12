@@ -65,13 +65,3 @@ extension ParserCyclePlusExtension<R> on Parser<R> {
   Parser<List<R>> cyclePlus() => _cyclePlus(this);
   Parser<List<R>> plus() => cyclePlus();
 }
-
-extension LazyParserCyclePlusExtension<R> on Lazy<Parser<R>> {
-  Parser<List<R>> cyclePlus() => this.reference().plus();
-  Parser<List<R>> plus() => cyclePlus();
-}
-
-extension StringCyclePlusExtension on String {
-  Parser<List<String>> cyclePlus() => this.parser().plus();
-  Parser<List<String>> plus() => cyclePlus();
-}

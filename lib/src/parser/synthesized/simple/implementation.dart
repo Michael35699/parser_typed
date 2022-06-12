@@ -25,20 +25,20 @@ PrimitiveParser _hexes() => "[0-9A-Fa-f]+".r();
 PrimitiveParser _octal() => "[0-7]".r();
 PrimitiveParser _octals() => "[0-7]+".r();
 
-Parser<String> _delimitedStar(String delimiter) => //
-    (r"\" & any() | delimiter.not() & any()).star().flat().between(delimiter, delimiter);
-Parser<String> _delimitedSingle(String delimiter) => //
-    (r"\" & any() | delimiter.not() & any()).flat().between(delimiter, delimiter);
+Parser<String> _delimitedStar(Parser<String> delimiter) => //
+    (string(r"\") & any() | delimiter.not() & any()).star().flat().between(delimiter, delimiter);
+Parser<String> _delimitedSingle(Parser<String> delimiter) => //
+    (string(r"\") & any() | delimiter.not() & any()).flat().between(delimiter, delimiter);
 
 // STRING
 Parser<String> _string() => _singleString() | _doubleString();
-Parser<String> _singleString() => _delimitedStar("'").message("Expected single-string literal");
-Parser<String> _doubleString() => _delimitedStar('"').message("Expected double-string literal");
+Parser<String> _singleString() => _delimitedStar("'".parser()).message("Expected single-string literal");
+Parser<String> _doubleString() => _delimitedStar('"'.parser()).message("Expected double-string literal");
 
 // CHAR
 Parser<String> _char() => _singleChar() | _doubleChar();
-Parser<String> _singleChar() => _delimitedSingle("'");
-Parser<String> _doubleChar() => _delimitedSingle('"');
+Parser<String> _singleChar() => _delimitedSingle("'".parser());
+Parser<String> _doubleChar() => _delimitedSingle('"'.parser());
 
 // INTEGER /DECIMAL
 Parser<num> _number() => r"""(?:[0-9]*\.[0-9]+)|(?:[0-9]+)""".r().map(num.parse);
@@ -95,10 +95,19 @@ void experiment() {
 //       }),
 //     );
 
-Parser __controlCharBody() => '"' / r"\" / "/" / "b" / "f" / "n" / "r" / "t" / (hex * 4);
+Parser __controlCharBody() =>
+    string('"') |
+    string(r"\") |
+    string("/") |
+    string("b") |
+    string("f") |
+    string("n") |
+    string("r") |
+    string("t") |
+    (hex.ref * 4).flat();
 Parser __controlChar() => string(r"\") & __controlCharBody.ref;
 Parser __stringAvoid() => string('"') / __controlChar.ref;
 Parser __stringChar() => __controlChar.ref | ~__stringAvoid.ref >> any();
-Parser _jsonString() => '"' & __stringChar.ref.star() & '"';
+Parser _jsonString() => string('"') & __stringChar.ref.star() & string('"');
 
 // Parser _jsonString() => r"""(")((?:(?:(?=\\)\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4}))|[^"\\\0-\x1F\x7F]+)*)(")""".r();

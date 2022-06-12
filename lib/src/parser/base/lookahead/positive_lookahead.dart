@@ -34,13 +34,3 @@ extension ParserPositiveLookaheadExtension<R> on Parser<R> {
   Parser<void> positiveLookahead() => _positiveLookahead(this);
   Parser<void> and() => positiveLookahead();
 }
-
-extension LazyParserPositiveLookaheadExtension<R> on Lazy<Parser<R>> {
-  Parser<void> positiveLookahead() => this.reference().positiveLookahead();
-  Parser<void> and() => positiveLookahead();
-}
-
-extension StringPositiveLookaheadExtension on String {
-  Parser<void> positiveLookahead() => this.parser().positiveLookahead();
-  Parser<void> and() => positiveLookahead();
-}

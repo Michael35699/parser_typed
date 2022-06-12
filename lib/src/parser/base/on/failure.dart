@@ -36,13 +36,3 @@ extension ParserOnFailureExtension<R> on Parser<R> {
   Parser<R> failure(R value) => _failure(this, value);
   Parser<R> operator ~/(R value) => failure(value);
 }
-
-extension LazyParserOnFailureExtension<R> on Lazy<Parser<R>> {
-  Parser<R> failure(R value) => this.reference().failure(value);
-  Parser<R> operator ~/(R value) => failure(value);
-}
-
-extension StringOnFailureExtension on String {
-  Parser<String> failure(String value) => this.parser().failure(value);
-  Parser<String> operator ~/(String value) => failure(value);
-}

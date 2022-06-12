@@ -54,15 +54,10 @@ extension IterableChoiceExtension<E> on List<Parser<E>> {
 }
 
 extension ParserChoiceExtension<R> on Parser<R> {
-  Parser<Object?> operator /(Object other) {
-    Parser self = this;
-    Parser resolved = Parser.resolve(other);
-
-    return ChoiceParser(<Parser>[
-      if (self is ChoiceParser) ...self.children else self,
-      if (resolved is ChoiceParser) ...resolved.children else resolved,
-    ]);
-  }
+  Parser<Object?> operator /(Parser<Object?> other) => ChoiceParser(<Parser>[
+        if (this is ChoiceParser) ...children else this,
+        if (other is ChoiceParser) ...other.children else other,
+      ]);
 
   Parser<R> operator |(Parser<R> other) {
     Parser<R> self = this;
@@ -71,14 +66,4 @@ extension ParserChoiceExtension<R> on Parser<R> {
       if (other is ChoiceParser<R>) ...other.children else other,
     ]);
   }
-}
-
-extension LazyParserChoiceExtension<R> on Lazy<Parser<R>> {
-  Parser<Object?> operator /(Object other) => this.reference() / Parser.resolve(other);
-  Parser<R> operator |(Parser<R> other) => this.reference() | other;
-}
-
-extension StringChoiceExtension on String {
-  Parser<Object?> operator /(Object other) => this.parser() / parser(other);
-  Parser<String> operator |(String other) => this.parser() | other.parser();
 }

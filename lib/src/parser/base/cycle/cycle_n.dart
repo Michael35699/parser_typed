@@ -71,17 +71,3 @@ extension ParserCycleNExtension<R> on Parser<R> {
   Parser<List<R>> times(int count) => cycleN(count);
   Parser<List<R>> operator *(int count) => cycleN(count);
 }
-
-extension LazyParserCycleNExtension<R> on Lazy<Parser<R>> {
-  Parser<List<R>> cycleN(int count) => this.reference().cycleN(count);
-  Parser<List<R>> n(int count) => cycleN(count);
-  Parser<List<R>> times(int count) => cycleN(count);
-  Parser<List<R>> operator *(int count) => cycleN(count);
-}
-
-extension StringCycleNExtension on String {
-  Parser<List<String>> cycleN(int count) => this.parser().cycleN(count);
-  Parser<List<String>> n(int count) => cycleN(count);
-  Parser<List<String>> times(int count) => cycleN(count);
-  Parser<List<String>> operator *(int count) => cycleN(count);
-}

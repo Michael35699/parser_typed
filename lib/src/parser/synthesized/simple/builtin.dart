@@ -55,8 +55,8 @@ PrimitiveParser preUnaryMathOp() => _preUnaryMathOp();
 PrimitiveParser postUnaryMathOp() => _postUnaryMathOp();
 
 // JSON NUMBER
-Parser<num> completeNumberSlow() => _completeNumberSlow.build();
-Parser<num> jsonNumberSlow() => _jsonNumberSlow.build();
+Parser<num> completeNumberSlow() => _completeNumberSlow();
+Parser<num> jsonNumberSlow() => _jsonNumberSlow();
 // Parser completeNumber() => _completeNumber();
 // Parser jsonNumber() => _jsonNumber();
 

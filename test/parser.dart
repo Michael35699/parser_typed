@@ -35,9 +35,9 @@ void main() {
         expect(fail, parserFailure("foo"));
       });
 
-      run("extension_method", "a".$.map((_) => "b") & "b",
+      run("extension_method", "a".parser().map((_) => "b") & "b".parser(),
           failure.map<Never>((_) => fail("this should not be called")));
-      run("constructor", parser.MapParser("a".$, (_) => "b") & "b",
+      run("constructor", parser.MapParser("a".parser(), (_) => "b") & "b".parser(),
           parser.MapParser<void, void>(failure, (_) => fail("this should not be called")));
     });
     group("bind", () {
@@ -171,7 +171,7 @@ void main() {
       });
 
       parser.PrimitiveParser delegate = "a".parser();
-      parser.Parser<String> separator = ",".t();
+      parser.Parser<String> separator = ",".parser().trim();
       run("operator_extension", delegate % separator);
       run("method_extension_1", delegate.cycleSeparated(separator));
       run("method_extension_2", delegate.separated(separator));
@@ -180,24 +180,9 @@ void main() {
     });
     group("cycle_to", () {
       TestGroup run = createTestGroup((parser.Parser p) {
-        expect(
-          p,
-          parserSuccess("aaaaac", <String>["a", "a", "a", "a", "a"], index: 5),
-        );
-        expect(
-          p & "c",
-          parserSuccess("aaac", <Object>[
-            <String>["a", "a", "a"],
-            "c"
-          ]),
-        );
-        expect(
-          p.optional() & "c",
-          parserSuccess("ac", <Object>[
-            <String>["a"],
-            "c"
-          ]),
-        );
+        expect(p, parserSuccess("aaaaac", <String>["a", "a", "a", "a", "a"], index: 5));
+        expect(p, parserSuccess("aaac", <String>["a", "a", "a"], index: 3));
+        expect(p.optional(), parserSuccess("ac", <String>["a"], index: 1));
       });
 
       parser.PrimitiveParser delegate = "a".parser();
@@ -234,7 +219,7 @@ void main() {
 
   group("lazy_wrap", () {
     group("reference", () {
-      parser.Parser built() => "a" & "b";
+      parser.Parser built() => "a".parser() & "b".parser();
       TestGroup<parser.ReferenceParser> run = createTestGroup((parser.ReferenceParser<void> lazy) {
         expect(lazy.computed, equals(built.reference().computed));
         expect(lazy.computed, equals(lazy.base));
@@ -303,15 +288,21 @@ void main() {
       run("extension_2", template.p());
       run("function", parser.string(template));
       run("constructor", parser.StringParser(template));
-      run("dollar", template.$);
+      // run("dollar", template.$);
       test("identity", () {
-        parser.Parser parser1 = template.$;
+        // parser.Parser parser1 = template.$;
         parser.Parser parser2 = template.parser();
         parser.Parser parser3 = template.p();
         parser.Parser parser4 = parser.string(template);
         parser.Parser parser5 = parser.StringParser(template);
 
-        Set<parser.Parser> parsers = <parser.Parser>{parser1, parser2, parser3, parser4, parser5};
+        Set<parser.Parser> parsers = <parser.Parser>{
+          // parser1,
+          parser2,
+          parser3,
+          parser4,
+          parser5,
+        };
         expect(parsers.length, 1);
       });
     });
@@ -324,11 +315,11 @@ void main() {
         expect(parser, parserFailure("ab"));
       });
 
-      run("operator", ~"a" & "b");
-      run("method_extension_1", "a".parser().negativeLookahead() & "b");
-      run("method_extension_2", "a".parser().not() & "b");
-      run("function", parser.not("a".parser()) & "b");
-      run("constructor", parser.NegativeLookaheadParser("a".parser()) & "b");
+      run("operator", ~"a".parser() & "b".parser());
+      run("method_extension_1", "a".parser().negativeLookahead() & "b".parser());
+      run("method_extension_2", "a".parser().not() & "b".parser());
+      run("function", parser.not("a".parser()) & "b".parser());
+      run("constructor", parser.NegativeLookaheadParser("a".parser()) & "b".parser());
     });
     group("and", () {
       TestGroup run = createTestGroup((parser.Parser parser) {
@@ -350,9 +341,9 @@ void main() {
         expect(p, parserSuccess("d", "c", index: 0));
       });
 
-      run("operator_extension", "b" ~/ "c");
-      run("method_extension", "b".failure("c"));
-      run("constructor", parser.OnFailureParser<String>("b".$, "c"));
+      run("operator_extension", "b".parser() ~/ "c");
+      run("method_extension", "b".parser().failure("c"));
+      run("constructor", parser.OnFailureParser<String>("b".parser(), "c"));
     });
     group("success", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -360,8 +351,8 @@ void main() {
         expect(p, parserFailure("ac", message: "Expected 'b'"));
       });
 
-      run("extension", "a" & "b".success("c"));
-      run("constructor", "a" & parser.OnSuccessParser("b".parser(), "c"));
+      run("extension", "a".parser() & "b".parser().success("c"));
+      run("constructor", "a".parser() & parser.OnSuccessParser("b".parser(), "c"));
     });
   });
 
@@ -487,7 +478,7 @@ void main() {
         expect(p, parserFailure("foo"));
       });
 
-      parser.Parser<List<Object?>> template = "foo" & "bar".parser().tl() & "baz".parser().tl();
+      parser.Parser<List<Object?>> template = "foo".parser() & "bar".parser().tl() & "baz".parser().tl();
       run("extension", template.flat());
       run("function", parser.flat(template));
       run("constructor", parser.FlatParser(template));

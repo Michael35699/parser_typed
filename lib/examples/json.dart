@@ -19,7 +19,7 @@ Parser jsonParser() {
       .map(num.parse)
       .message("Expected a number");
 
-  Parser<String> stringParser = (((r"\") >> any() | '"'.not() >> any()).star())
+  Parser<String> stringParser = ((r"\".parser() >> any() | '"'.parser().not() >> any()).star())
       .flat()
       .message("Expected a string literal")
       .between(string('"'), string('"'));

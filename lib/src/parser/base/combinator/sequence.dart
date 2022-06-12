@@ -58,29 +58,14 @@ extension IterableSequenceExtension<E> on List<Parser<E>> {
 }
 
 extension ParserSequenceExtension<R> on Parser<R> {
-  Parser<List<Object?>> operator &(Object other) {
-    Parser self = this;
-    Parser resolved = Parser.resolve(other);
-
-    return SequenceParser<Object?>(<Parser>[
-      if (self is SequenceParser) ...self.children else self,
-      if (resolved is SequenceParser) ...resolved.children else resolved,
-    ]);
-  }
+  Parser<List<Object?>> operator &(Parser<Object?> other) => SequenceParser<Object?>(<Parser>[
+        if (this is SequenceParser) ...children else this,
+        if (other is SequenceParser) ...other.children else other,
+      ]);
 
   SequenceParser<R> operator +(Parser<R> other) => SequenceParser<R>(<Parser<R>>[this, other]);
 }
 
 extension SequenceParserSequenceExtension<R> on SequenceParser<R> {
-  Parser<List<R>> operator +(Parser<R> other) => SequenceParser<R>(<Parser<R>>[...children, other]);
-}
-
-extension LazyParserSequenceExtension<R> on Lazy<Parser<R>> {
-  Parser<List<Object?>> operator &(Object other) => this.reference() & other;
-  Parser<List<R>> operator +(Parser<R> other) => this.reference() + other;
-}
-
-extension StringSequenceExtension on String {
-  Parser<List<Object?>> operator &(Object other) => this.parser() & other;
-  Parser<List<String>> operator +(Parser<String> other) => this.parser() + other;
+  SequenceParser<R> operator +(Parser<R> other) => SequenceParser<R>(<Parser<R>>[...children, other]);
 }

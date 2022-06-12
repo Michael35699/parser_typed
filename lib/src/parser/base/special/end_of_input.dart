@@ -26,7 +26,3 @@ EndOfInputParser eoi() => EndOfInputParser();
 extension ParserEndOfInputExtension<R> on Parser<R> {
   Parser<R> end() => (this & eoi()).action((R left, void _) => left);
 }
-
-extension LazyParserEndOfInputExtension<R> on Lazy<Parser<R>> {
-  Parser<R> end() => (this.reference() & eoi()).action((R left, void _) => left);
-}

@@ -56,13 +56,3 @@ extension ParserCycleStarExtension<R> on Parser<R> {
   Parser<List<R>> cycleStar() => _cycleStar(this);
   Parser<List<R>> star() => cycleStar();
 }
-
-extension LazyParserCycleStarExtension<R> on Lazy<Parser<R>> {
-  Parser<List<R>> cycleStar() => this.reference().star();
-  Parser<List<R>> star() => cycleStar();
-}
-
-extension StringCycleStarExtension on String {
-  Parser<List<String>> cycleStar() => this.parser().star();
-  Parser<List<String>> star() => cycleStar();
-}

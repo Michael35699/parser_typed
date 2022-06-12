@@ -32,11 +32,3 @@ class FlatMapParser<R, O> extends WrapParser<R, O> {
 extension ParserFlatMapExtension<O> on Parser<O> {
   Parser<R> expand<R>(FlatMapFunction<R, O> function) => FlatMapParser<R, O>(this, function);
 }
-
-extension LazyParserFlatMapExtension<O> on Lazy<Parser<O>> {
-  Parser<R> expand<R>(FlatMapFunction<R, O> function) => this.reference().expand(function);
-}
-
-extension StringFlatMapExtension on String {
-  // Parser<R> expand<R>(FlatMapFunction<R, String> function) => this.parser().expand(function);
-}

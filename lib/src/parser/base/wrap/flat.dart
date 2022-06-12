@@ -34,11 +34,3 @@ Parser<String> flat<R>(Parser<R> parser) => _flat(parser);
 extension ParserFlatExtension<R> on Parser<R> {
   Parser<String> flat() => _flat(this);
 }
-
-extension LazyParserFlatExtension<R> on Lazy<Parser<R>> {
-  Parser<String> flat() => this.reference().flat();
-}
-
-extension StringParserFlatExtension on String {
-  Parser<String> flat() => this.parser().flat();
-}

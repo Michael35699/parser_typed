@@ -35,15 +35,3 @@ extension ParserNegativeLookaheadExtension<R> on Parser<R> {
   Parser<void> not() => negativeLookahead();
   Parser<void> operator ~() => negativeLookahead();
 }
-
-extension LazyParserNegativeLookaheadExtension<R> on Lazy<Parser<R>> {
-  Parser<void> negativeLookahead() => this.reference().negativeLookahead();
-  Parser<void> not() => negativeLookahead();
-  Parser<void> operator ~() => negativeLookahead();
-}
-
-extension StringNegativeLookaheadExtension on String {
-  Parser<void> negativeLookahead() => this.parser().negativeLookahead();
-  Parser<void> not() => negativeLookahead();
-  Parser<void> operator ~() => negativeLookahead();
-}

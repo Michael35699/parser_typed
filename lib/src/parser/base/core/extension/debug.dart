@@ -33,11 +33,3 @@ Parser<R> _debug<R>(Parser<R> root) {
 extension ParserDebugExtension<R> on Parser<R> {
   Parser<R> debug() => _debug(this);
 }
-
-extension LazyParserDebugExtension<R> on Lazy<Parser<R>> {
-  Parser<R> debug() => _debug(this.reference());
-}
-
-extension StringDebugExtension on String {
-  Parser<String> debug() => _debug(this.parser());
-}

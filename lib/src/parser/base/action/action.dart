@@ -35,11 +35,3 @@ class ActionParser<R, O> extends WrapParser<R, O> with PassRecognizer {
 extension ParserActionExtension<O> on Parser<O> {
   Parser<R> action<R extends Object?>(ActionFunction function) => ActionParser<R, O>(this, function);
 }
-
-extension LazyParserActionExtension<O> on Lazy<Parser<O>> {
-  Parser<R> action<R extends Object?>(ActionFunction function) => this.reference().action(function);
-}
-
-extension StringActionExtension on String {
-  // Parser<R> action<R >(ActionFunction function) => this.parser().action(function);
-}
