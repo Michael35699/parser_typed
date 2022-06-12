@@ -1,6 +1,6 @@
 // cspell: disable
 
-import "package:parser_typed/examples/calculator/math.dart" as math_parser;
+import "package:parser_typed/examples/math.dart" as math_parser;
 import "package:parser_typed/parser.dart" as parser;
 import "package:test/test.dart";
 
