@@ -48,6 +48,7 @@ DropRightParser<R> _dropRight<R>(Parser<R> parser, Parser<void> right) => DropRi
 extension ParserDropRightExtension<R> on Parser<R> {
   Parser<R> dropRight(Parser right) => _dropRight(this, right);
   Parser<R> suffix(Parser right) => dropRight(right);
+  Parser<R> postfix(Parser right) => dropRight(right);
 
   Parser<R> operator <<(Parser right) => dropRight(right);
 }

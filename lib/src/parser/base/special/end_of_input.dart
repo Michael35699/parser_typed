@@ -24,5 +24,5 @@ EndOfInputParser end() => EndOfInputParser();
 EndOfInputParser eoi() => EndOfInputParser();
 
 extension ParserEndOfInputExtension<R> on Parser<R> {
-  Parser<R> end() => (this & eoi()).action((R left, void _) => left);
+  Parser<R> end() => suffix(eoi());
 }
