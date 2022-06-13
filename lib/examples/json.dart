@@ -5,26 +5,24 @@ typedef JsonMap = Map<String, JsonValue>;
 typedef JsonMapEntry = MapEntry<String, JsonValue>;
 
 Parser jsonParser() {
-  Parser reflection = BlankParser<Object?>.generate();
+  Parser<dynamic> reflection = BlankParser<Object?>.generate();
 
-  // ignore: prefer_void_to_null
-  Parser<Null> nullParser = string("null").map((_) => null);
+  Parser<void> nullParser = string("null").map((_) {});
   Parser<bool> trueParser = string("true").map((_) => true);
   Parser<bool> falseParser = string("false").map((_) => false);
-  Parser<num> numberParser = (string("-").optional() &
-          digits() &
-          (string(".") & digits()).optional() &
-          (string("e") & (string("-") | string("+")).optional() & digits()).optional())
-      .flat()
-      .map(num.parse)
-      .message("Expected a number");
+  Parser<num> numberParser = <Parser>[
+    string("-").optional(),
+    digits(),
+    (string(".") & digits()).optional(),
+    (string("e") & (string("+") | string("-")).optional() & digits()).optional(),
+  ].sequence().flat().map(num.parse).message("Expected a number");
 
   Parser<String> stringParser = ((r"\".parser() >> any() | '"'.parser().not() >> any()).star())
       .flat()
       .message("Expected a string literal")
       .between(string('"'), string('"'));
 
-  Parser<List<dynamic>> arrayParser = (reflection.separated(string(",").tnl())) //
+  Parser<List<JsonValue>> arrayParser = (reflection.separated(string(",").tnl())) //
       .failure(<dynamic>[]) //
       .between(string("[").tnl(), string("]").tnl());
 
@@ -34,10 +32,10 @@ Parser jsonParser() {
       .map(JsonMap.fromEntries)
       .between(string("{").tnl(), string("}").tnl());
 
-  Parser valueParser = nullParser / trueParser |
+  Parser<JsonValue> valueParser = nullParser / trueParser |
       falseParser / numberParser | //
       stringParser / arrayParser |
       objectParser;
 
-  return valueParser.replace(reflection, valueParser).build();
+  return valueParser.replace(reflection, valueParser).build().end();
 }
