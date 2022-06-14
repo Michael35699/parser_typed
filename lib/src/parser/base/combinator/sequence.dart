@@ -58,10 +58,10 @@ extension IterableSequenceExtension<E> on List<Parser<E>> {
 }
 
 extension ParserSequenceExtension<R> on Parser<R> {
-  Parser<List<Object?>> operator &(Parser<Object?> other) => SequenceParser<Object?>(<Parser>[
-        if (this is SequenceParser) ...children else this,
-        if (other is SequenceParser) ...other.children else other,
-      ]);
+  // Parser<List<Object?>> operator &(Parser<Object?> other) => SequenceParser<Object?>(<Parser>[
+  //       if (this is SequenceParser) ...children else this,
+  //       if (other is SequenceParser) ...other.children else other,
+  //     ]);
 
   SequenceParser<R> operator +(Parser<R> other) => SequenceParser<R>(<Parser<R>>[this, other]);
 }

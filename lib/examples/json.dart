@@ -7,9 +7,9 @@ typedef JsonMapEntry = MapEntry<String, JsonValue>;
 Parser jsonParser() {
   Parser<dynamic> reflection = BlankParser<Object?>.generate();
 
-  Parser<void> nullParser = string("null").map((_) {});
-  Parser<bool> trueParser = string("true").map((_) => true);
-  Parser<bool> falseParser = string("false").map((_) => false);
+  Parser<void> nullParser = string("null").success(null);
+  Parser<bool> trueParser = string("true").success(true);
+  Parser<bool> falseParser = string("false").success(false);
   Parser<num> numberParser = (string("-").optional() &
           digits() &
           (string(".") & digits()).optional() &
@@ -28,7 +28,7 @@ Parser jsonParser() {
       .between(string("[").tnl(), string("]").tnl());
 
   Parser<JsonMap> objectParser = (stringParser & string(":").tnl() & reflection)
-      .map((List<dynamic> result) => JsonMapEntry(result[0] as String, result[2]))
+      .map((String key, _, JsonValue value) => JsonMapEntry.new(key, value))
       .separated(string(",").tnl()) //
       .map(JsonMap.fromEntries)
       .failure(JsonMap.new())

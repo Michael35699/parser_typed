@@ -22,7 +22,7 @@ class ActionParser<R, O> extends WrapParser<R, O> with PassRecognizer {
     late O result = resultContext.value;
 
     return resultContext.isSuccess
-        ? parser.base is SequenceParser && result is List
+        ? (parser.base is SequenceParser || parser.base is SequenceBase) && result is List
             ? resultContext.success(Function.apply(actionFunction, result) as R)
             : resultContext.success(Function.apply(actionFunction, <O>[result]) as R)
         : resultContext.cast();

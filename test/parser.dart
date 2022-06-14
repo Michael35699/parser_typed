@@ -114,7 +114,7 @@ void main() {
       /// 5.     ''.plus()
     });
     test("traverse_first", () {
-      expect(cached[0].runtimeType, parser.SequenceParser<Object?>);
+      expect(cached[0].runtimeType, parser.Sequence2<String, Object?>);
       expect(cached[1].runtimeType, parser.StringParser);
       expect(cached[2].runtimeType, parser.CyclePlusParser<String>);
       expect(cached[3].runtimeType, parser.TrimParser<String>);
