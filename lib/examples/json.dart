@@ -10,12 +10,13 @@ Parser jsonParser() {
   Parser<void> nullParser = string("null").map((_) {});
   Parser<bool> trueParser = string("true").map((_) => true);
   Parser<bool> falseParser = string("false").map((_) => false);
-  Parser<num> numberParser = <Parser>[
-    string("-").optional(),
-    digits(),
-    (string(".") & digits()).optional(),
-    (string("e") & (string("+") | string("-")).optional() & digits()).optional(),
-  ].sequence().flat().map(num.parse).message("Expected a number");
+  Parser<num> numberParser = (string("-").optional() &
+          digits() &
+          (string(".") & digits()).optional() &
+          (string("e") & (string("+") | string("-")).optional() & digits()).optional())
+      .flat()
+      .map(num.parse)
+      .message("Expected a number");
 
   Parser<String> stringParser = ((r"\".parser() >> any() | '"'.parser().not() >> any()).star())
       .flat()
@@ -30,6 +31,7 @@ Parser jsonParser() {
       .map((List<dynamic> result) => JsonMapEntry(result[0] as String, result[2]))
       .separated(string(",").tnl()) //
       .map(JsonMap.fromEntries)
+      .failure(JsonMap.new())
       .between(string("{").tnl(), string("}").tnl());
 
   Parser<JsonValue> valueParser = nullParser / trueParser |
