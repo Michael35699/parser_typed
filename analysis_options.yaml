@@ -1,6 +1,6 @@
 analyzer:
   enable-experiment:
-    - inference-update-1
+    - macros
   language:
     strict-inference: true
     strict-raw-types: true

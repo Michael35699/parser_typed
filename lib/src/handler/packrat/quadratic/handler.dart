@@ -67,12 +67,12 @@ class QuadraticHandler extends ParseHandler {
 
     // If the current parser is not a part of the head and is not evaluated yet,
     // Add a failure to it.
-    if (entry == null || !<Parser>{...head.involvedSet, head.parser}.contains(parser)) {
+    if (entry == null || !head.involvedSet.contains(parser) && head.parser != parser) {
       return context.failure("seed").entry();
     }
 
     // Remove the current parser from the head's evaluation set.
-    head.evaluationSet.remove(parser);
+    head.evaluationSet.remove(parser); 
     entry.value = parser.parseOn(context, this);
 
     return entry;
