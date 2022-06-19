@@ -22,20 +22,22 @@ abstract class Parser<R> implements Pattern {
 
   Context<R> parse(String input, [int start = 0]) => QuadraticHandler().parse(this, Empty(input, start));
   int recognize(String input, [int start = 0]) => QuadraticHandler().recognize(this, input, start);
+  bool accepts(String input, [int start = 0]) => recognize(input, start) >= 0;
 
   Context<R> run(String input) {
     QuadraticHandler handler = QuadraticHandler();
     Parser<R> built = build();
-    Context<void> context = Empty(input.unindent(), index);
+    Empty context = Empty(input.unindent(), index);
     Context<R> result = handler.parse(built, context);
 
-    if (result.isFailure) {
-      Failure longest = handler.failure(result.failure());
-      String formattedMessage = longest.generateFailureMessage();
-
-      return longest.failure(formattedMessage);
+    if (result is! Failure) {
+      return result;
     }
-    return result;
+
+    Failure longest = handler.failure(result);
+    String formattedMessage = longest.generateFailureMessage();
+
+    return longest.failure(formattedMessage);
   }
 
   R evaluate(String input, {R Function()? except}) {
@@ -44,6 +46,7 @@ abstract class Parser<R> implements Pattern {
       if (except != null) {
         return except();
       }
+      throw Exception(result.message);
     }
     return result.value;
   }
@@ -252,7 +255,7 @@ abstract class Parser<R> implements Pattern {
   }
 }
 
-Parser parser(Parser item) => item;
+Parser<R> parser<R>(Parser<R> item) => item;
 
 extension _UnindentExtension on String {
   String unindent() {
