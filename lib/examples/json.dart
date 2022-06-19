@@ -28,7 +28,7 @@ Parser jsonParser() {
       .between(string("[").tnl(), string("]").tnl());
 
   Parser<JsonMap> objectParser = (stringParser & string(":").tnl() & reflection)
-      .map((String key, _, JsonValue value) => JsonMapEntry.new(key, value))
+      .action<JsonMapEntry>((String key, void _, JsonValue value) => JsonMapEntry.new(key, value))
       .separated(string(",").tnl()) //
       .map(JsonMap.fromEntries)
       .failure(JsonMap.new())
