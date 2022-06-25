@@ -5,8 +5,34 @@ class RegExpParser extends PrimitiveParser with ChildlessParser {
 
   final RegExp pattern;
 
-  factory RegExpParser(String pattern) => _savedParsers[pattern] ??= RegExpParser.fromString(pattern);
-  RegExpParser.fromString(String pattern) : pattern = RegExp(pattern);
+  factory RegExpParser.generate(
+    String pattern, {
+    bool multiLine = false,
+    bool caseSensitive = true,
+    bool unicode = false,
+    bool dotAll = false,
+  }) =>
+      _savedParsers[pattern] ??= RegExpParser.fromString(
+        pattern,
+        multiLine: multiLine,
+        caseSensitive: caseSensitive,
+        unicode: unicode,
+        dotAll: dotAll,
+      );
+
+  RegExpParser.fromString(
+    String pattern, {
+    bool multiLine = false,
+    bool caseSensitive = true,
+    bool unicode = false,
+    bool dotAll = false,
+  }) : pattern = RegExp(
+          pattern,
+          multiLine: multiLine,
+          caseSensitive: caseSensitive,
+          unicode: unicode,
+          dotAll: dotAll,
+        );
 
   @override
   Context<int> call(String input, int index, ParseHandler handler) {
@@ -22,9 +48,35 @@ class RegExpParser extends PrimitiveParser with ChildlessParser {
   String toString() => "regex[/${pattern.pattern}/]";
 }
 
-RegExpParser regex(String pattern) => RegExpParser(pattern);
+RegExpParser regex(
+  String pattern, {
+  bool multiLine = false,
+  bool caseSensitive = true,
+  bool unicode = false,
+  bool dotAll = false,
+}) =>
+    RegExpParser.generate(
+      pattern,
+      multiLine: multiLine,
+      caseSensitive: caseSensitive,
+      unicode: unicode,
+      dotAll: dotAll,
+    );
 
 extension StringRegExpExtension on String {
-  PrimitiveParser r() => RegExpParser(this);
-  PrimitiveParser regex() => RegExpParser(this);
+  PrimitiveParser r() => RegExpParser.generate(this);
+
+  PrimitiveParser regex({
+    bool multiLine = false,
+    bool caseSensitive = true,
+    bool unicode = false,
+    bool dotAll = false,
+  }) =>
+      RegExpParser.generate(
+        this,
+        multiLine: multiLine,
+        caseSensitive: caseSensitive,
+        unicode: unicode,
+        dotAll: dotAll,
+      );
 }
