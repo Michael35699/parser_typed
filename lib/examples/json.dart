@@ -34,9 +34,12 @@ Parser jsonParser() {
       .failure(JsonMap.new())
       .between(string("{").tnl(), string("}").tnl());
 
-  Parser<JsonValue> valueParser = nullParser / trueParser |
-      falseParser / numberParser | //
-      stringParser / arrayParser |
+  Parser<JsonValue> valueParser = nullParser |
+      trueParser |
+      falseParser |
+      numberParser | //
+      stringParser |
+      arrayParser |
       objectParser;
 
   return valueParser.replace(reflection, valueParser).build().end();

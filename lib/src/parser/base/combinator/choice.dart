@@ -54,12 +54,12 @@ extension IterableChoiceExtension<E> on List<Parser<E>> {
 }
 
 extension ParserChoiceExtension<R> on Parser<R> {
-  Parser<Object?> operator /(Parser<Object?> other) => ChoiceParser(<Parser>[
+  Parser<Object?> operator |(Parser<Object?> other) => ChoiceParser(<Parser>[
         if (this is ChoiceParser) ...children else this,
         if (other is ChoiceParser) ...other.children else other,
       ]);
 
-  Parser<R> operator |(Parser<R> other) {
+  Parser<R> operator /(Parser<R> other) {
     Parser<R> self = this;
     return ChoiceParser<R>(<Parser<R>>[
       if (self is ChoiceParser<R>) ...self.children else self,

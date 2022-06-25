@@ -31,12 +31,12 @@ Parser<String> _delimitedSingle(Parser<String> delimiter) => //
     (string(r"\") & any() | delimiter.not() & any()).flat().between(delimiter, delimiter);
 
 // STRING
-Parser<String> _string() => _singleString() | _doubleString();
+Parser<String> _string() => _singleString() / _doubleString();
 Parser<String> _singleString() => _delimitedStar("'".parser()).message("Expected single-string literal");
 Parser<String> _doubleString() => _delimitedStar('"'.parser()).message("Expected double-string literal");
 
 // CHAR
-Parser<String> _char() => _singleChar() | _doubleChar();
+Parser<String> _char() => _singleChar() / _doubleChar();
 Parser<String> _singleChar() => _delimitedSingle("'".parser());
 Parser<String> _doubleChar() => _delimitedSingle('"'.parser());
 
@@ -104,9 +104,9 @@ Parser __controlCharBody() =>
     string("n") |
     string("r") |
     string("t") |
-    (hex.ref * 4).flat();
+    hex.ref * 4;
 Parser __controlChar() => string(r"\") & __controlCharBody.ref;
-Parser __stringAvoid() => string('"') / __controlChar.ref;
+Parser __stringAvoid() => string('"') | __controlChar.ref;
 Parser __stringChar() => __controlChar.ref | ~__stringAvoid.ref >> any();
 Parser _jsonString() => string('"') & __stringChar.ref.star() & string('"');
 
