@@ -16,12 +16,12 @@ void main() {
       });
       parser.Parser delegate = parser.string("a") & parser.string("b");
 
-      run.call(
+      run(
         "extension_method",
         delegate.action((String a, String b) => <String>["a", "c"]),
         failure.action(() => fail("this should not be called")),
       );
-      run.call(
+      run(
         "constructor",
         parser.ActionParser<dynamic, dynamic>(delegate, (String a, String b) => <String>["a", "c"]),
         parser.ActionParser<dynamic, dynamic>(delegate, () => fail("this should not be called")),
@@ -37,9 +37,9 @@ void main() {
       parser.Parser<String> left = parser.string("a");
       parser.Parser<String> right = parser.string("b");
 
-      run.call("extension_method", left.map((_) => "b") & right,
+      run("extension_method", left.map((_) => "b") & right,
           failure.map<Never>((_) => fail("this should not be called")));
-      run.call("constructor", parser.MapParser(left, (_) => "b") & right,
+      run("constructor", parser.MapParser(left, (_) => "b") & right,
           parser.MapParser<void, void>(failure, (_) => fail("this should not be called")));
     });
     group("bind", () {
@@ -51,12 +51,12 @@ void main() {
       parser.Parser<String> left = parser.string("a");
       parser.Parser<String> right = parser.string("b");
 
-      run.call(
+      run(
         "extension_method",
         left.bind((String l) => right.bind((String r) => parser.success(<String>[l, r]))),
         failure.bind<void>((_) => fail("shouldn't be called")),
       );
-      run.call(
+      run(
         "constructor",
         parser.BindParser(left, (String l) => parser.BindParser(right, (String r) => parser.success(<String>[l, r]))),
         parser.BindParser(failure, (_) => fail("shouldn't be called.")),
@@ -69,12 +69,12 @@ void main() {
         expect(alwaysFails, parserFailure("foo bar"));
       });
 
-      run.call(
+      run(
         "extension_method",
         integer.where((int p) => p.isEven),
         failure.where((_) => fail("shouldn't be called")),
       );
-      run.call(
+      run(
         "constructor",
         parser.FilterParser<int>(integer, (int p) => p.isEven),
         parser.FilterParser<int>(failure, (int p) => fail("shouldn't be called")),
@@ -87,12 +87,12 @@ void main() {
       });
 
       parser.PrimitiveParser delegate = "b".parser();
-      run.call(
+      run(
         "method_extension",
         delegate.expand((_) => const parser.Success("bb")),
         failure.expand((_) => fail("Should not be called")),
       );
-      run.call(
+      run(
         "constructor",
         parser.FlatMapParser(delegate, (_) => const parser.Success("bb")),
         parser.FlatMapParser(failure, (_) => fail("Should not be called")),
@@ -144,10 +144,10 @@ void main() {
       });
 
       parser.Parser<String> delegate = "a".parser();
-      run.call("method_extension_1", delegate.cycleStar());
-      run.call("method_extension_2", delegate.star());
-      run.call("function", parser.cycleStar(delegate));
-      run.call("constructor", parser.CycleStarParser(delegate));
+      run("method_extension_1", delegate.cycleStar());
+      run("method_extension_2", delegate.star());
+      run("function", parser.cycleStar(delegate));
+      run("constructor", parser.CycleStarParser(delegate));
     });
     group("plus", () {
       TestGroup run = createTestGroup((Object? parser) {
@@ -158,10 +158,10 @@ void main() {
       });
 
       parser.Parser<String> delegate = "a".parser();
-      run.call("method_extension_1", delegate.cyclePlus());
-      run.call("method_extension_2", delegate.plus());
-      run.call("function", parser.cyclePlus(delegate));
-      run.call("constructor", parser.CyclePlusParser(delegate));
+      run("method_extension_1", delegate.cyclePlus());
+      run("method_extension_2", delegate.plus());
+      run("function", parser.cyclePlus(delegate));
+      run("constructor", parser.CyclePlusParser(delegate));
     });
     group("separated", () {
       TestGroup run = createTestGroup((Object? separated) {
@@ -173,11 +173,11 @@ void main() {
 
       parser.PrimitiveParser delegate = "a".parser();
       parser.Parser<String> separator = ",".parser().trim();
-      run.call("operator_extension", delegate % separator);
-      run.call("method_extension_1", delegate.cycleSeparated(separator));
-      run.call("method_extension_2", delegate.separated(separator));
-      run.call("constructor", parser.CycleSeparatedParser(delegate, separator));
-      run.call("function", parser.cycleSeparated(delegate, separator));
+      run("operator_extension", delegate % separator);
+      run("method_extension_1", delegate.cycleSeparated(separator));
+      run("method_extension_2", delegate.separated(separator));
+      run("constructor", parser.CycleSeparatedParser(delegate, separator));
+      run("function", parser.cycleSeparated(delegate, separator));
     });
     group("cycle_to", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -189,10 +189,10 @@ void main() {
       parser.PrimitiveParser delegate = "a".parser();
       parser.PrimitiveParser delimiter = "c".parser();
 
-      run.call("method_extension_1", delegate.cycleTo(delimiter));
-      run.call("method_extension_2", delegate.to(delimiter));
-      run.call("constructor", parser.CycleToParser(delegate, delimiter));
-      run.call("function", parser.cycleTo(delegate, delimiter));
+      run("method_extension_1", delegate.cycleTo(delimiter));
+      run("method_extension_2", delegate.to(delimiter));
+      run("constructor", parser.CycleToParser(delegate, delimiter));
+      run("function", parser.cycleTo(delegate, delimiter));
     });
     group("n_times", () {
       TestGroup2 run = createTestGroup2((parser.Parser main, parser.Parser grid) {
@@ -210,12 +210,11 @@ void main() {
       });
 
       parser.Parser<String> delegate = parser.string("λx");
-      run.call("operator_extension", delegate * 3, (delegate * 3) * 3);
-      run.call("method_extension_1", delegate.cycleN(3), delegate.cycleN(3).cycleN(3));
-      run.call("method_extension_2", delegate.n(3), delegate.n(3).n(3));
-      run.call(
-          "constructor", parser.CycleNParser(delegate, 3), parser.CycleNParser(parser.CycleNParser(delegate, 3), 3));
-      run.call("function", parser.cycleN(delegate, 3), parser.cycleN(parser.cycleN(delegate, 3), 3));
+      run("operator_extension", delegate * 3, (delegate * 3) * 3);
+      run("method_extension_1", delegate.cycleN(3), delegate.cycleN(3).cycleN(3));
+      run("method_extension_2", delegate.n(3), delegate.n(3).n(3));
+      run("constructor", parser.CycleNParser(delegate, 3), parser.CycleNParser(parser.CycleNParser(delegate, 3), 3));
+      run("function", parser.cycleN(delegate, 3), parser.cycleN(parser.cycleN(delegate, 3), 3));
     });
   });
 
@@ -229,9 +228,9 @@ void main() {
         expect(lazy, parserThrow<UnsupportedError>("a"));
       });
 
-      run.call("extension_method", built.reference());
-      run.call("extension_getter", built.ref);
-      run.call("constructor", parser.ReferenceParser<Object?>(built));
+      run("extension_method", built.reference());
+      run("extension_getter", built.ref);
+      run("constructor", parser.ReferenceParser<Object?>(built));
     });
   });
 
@@ -264,15 +263,15 @@ void main() {
       });
 
       const String template = "[0-9]+";
-      run.call("", template.r());
-      run.call("extension_2", template.regex());
-      run.call("function", parser.regex(template));
-      run.call("constructor", parser.RegExpParser(template));
+      run("", template.r());
+      run("extension_2", template.regex());
+      run("function", parser.regex(template));
+      run("constructor", parser.RegExpParser.generate(template));
       test("identity", () {
         parser.PrimitiveParser parser1 = template.r();
         parser.PrimitiveParser parser2 = template.regex();
         parser.PrimitiveParser parser3 = parser.regex(template);
-        parser.PrimitiveParser parser4 = parser.RegExpParser(template);
+        parser.PrimitiveParser parser4 = parser.RegExpParser.generate(template);
 
         Set<parser.Parser> parsers = <parser.Parser>{parser1, parser2, parser3, parser4};
         expect(parsers.length, equals(1));
@@ -286,11 +285,11 @@ void main() {
         expect(parser, parserFailure("hello", message: "Expected 'foo bar'"));
       });
 
-      run.call("extension_1", template.parser());
-      run.call("extension_2", template.p());
-      run.call("function", parser.string(template));
-      run.call("constructor", parser.StringParser(template));
-      // run.call("dollar", template.$);
+      run("extension_1", template.parser());
+      run("extension_2", template.p());
+      run("function", parser.string(template));
+      run("constructor", parser.StringParser(template));
+      // run("dollar", template.$);
       test("identity", () {
         // parser.Parser parser1 = template.$;
         parser.Parser parser2 = template.parser();
@@ -317,11 +316,11 @@ void main() {
         expect(parser, parserFailure("ab"));
       });
 
-      run.call("operator", ~"a".parser() & "b".parser());
-      run.call("method_extension_1", "a".parser().negativeLookahead() & "b".parser());
-      run.call("method_extension_2", "a".parser().not() & "b".parser());
-      run.call("function", parser.not("a".parser()) & "b".parser());
-      run.call("constructor", parser.NegativeLookaheadParser("a".parser()) & "b".parser());
+      run("operator", ~"a".parser() & "b".parser());
+      run("method_extension_1", "a".parser().negativeLookahead() & "b".parser());
+      run("method_extension_2", "a".parser().not() & "b".parser());
+      run("function", parser.not("a".parser()) & "b".parser());
+      run("constructor", parser.NegativeLookaheadParser("a".parser()) & "b".parser());
     });
     group("and", () {
       TestGroup run = createTestGroup((parser.Parser parser) {
@@ -329,10 +328,10 @@ void main() {
         expect(parser, parserFailure("df"));
       });
 
-      run.call("method_extension_1", "a".parser().positiveLookahead() & "a".parser() & "b".parser());
-      run.call("method_extension_2", "a".parser().and() & "a".parser() & "b".parser());
-      run.call("function", parser.and("a".parser()) & "a".parser() & "b".parser());
-      run.call("constructor", parser.PositiveLookaheadParser("a".parser()) & "a".parser() & "b".parser());
+      run("method_extension_1", "a".parser().positiveLookahead() & "a".parser() & "b".parser());
+      run("method_extension_2", "a".parser().and() & "a".parser() & "b".parser());
+      run("function", parser.and("a".parser()) & "a".parser() & "b".parser());
+      run("constructor", parser.PositiveLookaheadParser("a".parser()) & "a".parser() & "b".parser());
     });
   });
 
@@ -343,9 +342,9 @@ void main() {
         expect(p, parserSuccess("d", "c", index: 0));
       });
 
-      run.call("operator_extension", "b".parser() ~/ "c");
-      run.call("method_extension", "b".parser().failure("c"));
-      run.call("constructor", parser.OnFailureParser<String>("b".parser(), "c"));
+      run("operator_extension", "b".parser() ~/ "c");
+      run("method_extension", "b".parser().failure("c"));
+      run("constructor", parser.OnFailureParser<String>("b".parser(), "c"));
     });
     group("success", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -353,8 +352,8 @@ void main() {
         expect(p, parserFailure("ac", message: "Expected 'b'"));
       });
 
-      run.call("extension", "a".parser() & "b".parser().success("c"));
-      run.call("constructor", "a".parser() & parser.OnSuccessParser("b".parser(), "c"));
+      run("extension", "a".parser() & "b".parser().success("c"));
+      run("constructor", "a".parser() & parser.OnSuccessParser("b".parser(), "c"));
     });
   });
 
@@ -365,8 +364,8 @@ void main() {
         expect(p, parserEmpty(""));
       });
 
-      run.call("function", parser.empty());
-      run.call("constructor", parser.EmptyParser());
+      run("function", parser.empty());
+      run("constructor", parser.EmptyParser());
     });
     group("except", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -374,8 +373,8 @@ void main() {
         expect(p, parserFailure("", message: "no chance"));
       });
 
-      run.call("function", parser.failure("no chance"));
-      run.call("constructor", parser.FailureParser("no chance"));
+      run("function", parser.failure("no chance"));
+      run("constructor", parser.FailureParser("no chance"));
     });
     group("success", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -383,8 +382,8 @@ void main() {
         expect(p, parserSuccess("", "yes chance", index: 0));
       });
 
-      run.call("function", parser.success<String>("yes chance"));
-      run.call("constructor", parser.SuccessParser("yes chance"));
+      run("function", parser.success<String>("yes chance"));
+      run("constructor", parser.SuccessParser("yes chance"));
     });
   });
 
@@ -395,8 +394,8 @@ void main() {
         expect(p, parserFailure("doesn't work", message: "blank"));
       });
 
-      run.call("function", parser.blank());
-      run.call("constructor", parser.BlankParser());
+      run("function", parser.blank());
+      run("constructor", parser.BlankParser());
       test("factory", () {
         expect(parser.blank(), equals(parser.blank()));
         expect(parser.BlankParser<Object?>(), equals(parser.BlankParser<Object?>()));
@@ -410,8 +409,8 @@ void main() {
         expect(p, parserSuccess("", null));
       });
 
-      run.call("function", parser.eoi());
-      run.call("constructor", parser.EndOfInputParser());
+      run("function", parser.eoi());
+      run("constructor", parser.EndOfInputParser());
       test("factory", () {
         expect(parser.eoi(), equals(parser.eoi()));
         expect(parser.end(), equals(parser.end()));
@@ -424,8 +423,8 @@ void main() {
         expect(p, parserSuccess("abc", "", index: 0));
       });
 
-      run.call("function", parser.epsilon());
-      run.call("constructor", parser.EpsilonParser());
+      run("function", parser.epsilon());
+      run("constructor", parser.EpsilonParser());
     });
     group("source", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -433,8 +432,8 @@ void main() {
         expect(parser.any(), parserSuccess("abc", "a", index: 1));
       });
 
-      run.call("function", parser.any());
-      run.call("constructor", parser.SourceParser());
+      run("function", parser.any());
+      run("constructor", parser.SourceParser());
     });
   });
 
@@ -446,8 +445,8 @@ void main() {
       });
 
       parser.PrimitiveParser delegate = "a".parser();
-      run.call("extension", delegate.cc(<R, I>(parser.ParseFunction<R, I> fn, parser.Context<I> ctx) => fn(ctx)));
-      run.call(
+      run("extension", delegate.cc(<R, I>(parser.ParseFunction<R, I> fn, parser.Context<I> ctx) => fn(ctx)));
+      run(
           "function",
           parser.ContinuationParser<String>(
               delegate, <R, I>(parser.ParseFunction<R, I> fn, parser.Context<I> ctx) => fn(ctx)));
@@ -459,9 +458,9 @@ void main() {
     //     expect(p, parserFailure("ac"));
     //   }
 
-    //   test.call("extension", () => run(delegate.drop()));
-    //   test.call("function", () => run(parser.drop(delegate)));
-    //   test.call("constructor", () => run(parser.DropParser(delegate)));
+    //   test("extension", () => run(delegate.drop()));
+    //   test("function", () => run(parser.drop(delegate)));
+    //   test("constructor", () => run(parser.DropParser(delegate)));
     // });
     group("except_message", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -469,9 +468,9 @@ void main() {
         expect(p, parserFailure("'hello world!", message: "Expected string literal"));
       });
       parser.Parser delegate = parser.string();
-      run.call("operator", delegate ^ "Expected string literal");
-      run.call("extension_method", delegate.message("Expected string literal"));
-      run.call("constructor", parser.FailureMessageParser(delegate, "Expected string literal"));
+      run("operator", delegate ^ "Expected string literal");
+      run("extension_method", delegate.message("Expected string literal"));
+      run("constructor", parser.FailureMessageParser(delegate, "Expected string literal"));
     });
     group("flat", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -481,9 +480,9 @@ void main() {
       });
 
       parser.Parser<Object?> delegate = "foo".parser() & "bar".parser().tl() & "baz".parser().tl();
-      run.call("extension", delegate.flat());
-      run.call("function", parser.flat(delegate));
-      run.call("constructor", parser.FlatParser(delegate));
+      run("extension", delegate.flat());
+      run("function", parser.flat(delegate));
+      run("constructor", parser.FlatParser(delegate));
     });
     group("optional", () {
       TestGroup run = createTestGroup((parser.Parser p) {
@@ -492,9 +491,9 @@ void main() {
       });
 
       parser.PrimitiveParser delegate = "a".parser();
-      run.call("extension", delegate.optional());
-      run.call("function", parser.optional(delegate));
-      run.call("constructor", parser.OptionalParser(delegate));
+      run("extension", delegate.optional());
+      run("function", parser.optional(delegate));
+      run("constructor", parser.OptionalParser(delegate));
     });
     group("trim", () {
       parser.Parser<String> left = parser.string("a");
@@ -510,9 +509,9 @@ void main() {
             expect(p, parserFailure("a \n  + \n  b"));
           });
 
-          run.call("extension_1", left & delegate.trimNewlineLeft() & right);
-          run.call("extension_2", left & delegate.tnlL() & right);
-          run.call("function", left & parser.trimNewlineLeft(delegate) & right);
+          run("extension_1", left & delegate.trimNewlineLeft() & right);
+          run("extension_2", left & delegate.tnlL() & right);
+          run("function", left & parser.trimNewlineLeft(delegate) & right);
         });
         group("trim_right", () {
           TestGroup run = createTestGroup((parser.Parser p) {
@@ -522,9 +521,9 @@ void main() {
             expect(p, parserFailure("a \n  + \n  b"));
           });
 
-          run.call("extension_1", left & delegate.trimNewlineRight() & right);
-          run.call("extension_2", left & delegate.tnlR() & right);
-          run.call("function", left & parser.trimNewlineRight(delegate) & right);
+          run("extension_1", left & delegate.trimNewlineRight() & right);
+          run("extension_2", left & delegate.tnlR() & right);
+          run("function", left & parser.trimNewlineRight(delegate) & right);
         });
         group("trim_left_right", () {
           TestGroup run = createTestGroup((parser.Parser p) {
@@ -534,9 +533,9 @@ void main() {
             expect(p, parserSuccess("a \n  + \n  b", <String>["a", "+", "b"]));
           });
 
-          run.call("extension_1", left & delegate.trimNewline() & right);
-          run.call("extension_2", left & delegate.tnl() & right);
-          run.call("function", left & parser.trimNewline(delegate) & right);
+          run("extension_1", left & delegate.trimNewline() & right);
+          run("extension_2", left & delegate.tnl() & right);
+          run("function", left & parser.trimNewline(delegate) & right);
         });
       });
       group("trim", () {
@@ -548,9 +547,9 @@ void main() {
             expect(p, parserFailure("a   +   b"));
           });
 
-          run.call("extension_1", left & delegate.trimLeft() & right);
-          run.call("extension_2", left & delegate.tl() & right);
-          run.call("function", left & parser.trimLeft(delegate) & right);
+          run("extension_1", left & delegate.trimLeft() & right);
+          run("extension_2", left & delegate.tl() & right);
+          run("function", left & parser.trimLeft(delegate) & right);
         });
         group("trim_right", () {
           TestGroup run = createTestGroup((parser.Parser p) {
@@ -560,9 +559,9 @@ void main() {
             expect(p, parserFailure("a   +   b"));
           });
 
-          run.call("extension_1", left & delegate.trimRight() & right);
-          run.call("extension_2", left & delegate.tr() & right);
-          run.call("function", left & parser.trimRight(delegate) & right);
+          run("extension_1", left & delegate.trimRight() & right);
+          run("extension_2", left & delegate.tr() & right);
+          run("function", left & parser.trimRight(delegate) & right);
         });
         group("trim_left_right", () {
           TestGroup run = createTestGroup((parser.Parser p) {
@@ -572,9 +571,9 @@ void main() {
             expect(p, parserSuccess("a   +   b", <String>["a", "+", "b"]));
           });
 
-          run.call("extension_1", left & delegate.trim() & right);
-          run.call("extension_2", left & delegate.t() & right);
-          run.call("function", left & parser.trim(delegate) & right);
+          run("extension_1", left & delegate.trim() & right);
+          run("extension_2", left & delegate.t() & right);
+          run("function", left & parser.trim(delegate) & right);
         });
       });
     });
