@@ -12,3 +12,7 @@ extension ParserBuildExtension<R> on Parser<R> {
     });
   }
 }
+
+extension LazyParserBuildExtension<R> on Lazy<Parser<R>> {
+  Parser<R> build() => this.reference().build();
+}
