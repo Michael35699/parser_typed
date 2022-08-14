@@ -34,6 +34,7 @@ extension FakeReferenceExtension<R> on Parser<R> {
 
 extension ReferenceExtension<R> on Lazy<Parser<R>> {
   ReferenceParser<R> reference() => ReferenceParser<R>(this);
+  ReferenceParser<R> $() => reference();
   ReferenceParser<R> get ref => reference();
 
   ReferenceParser<R> operator -() => reference();
