@@ -18,3 +18,10 @@ class StartOfInputParser extends SpecialParser<String> with NullableParser {
   @override
   int recognizeOn(String input, int index, ParseHandler handler) => index <= 0 ? index : -1;
 }
+
+StartOfInputParser start() => StartOfInputParser();
+StartOfInputParser soi() => StartOfInputParser();
+
+extension ParserStartOfInputExtension<R> on Parser<R> {
+  Parser<R> start() => prefix(start());
+}
